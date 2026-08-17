@@ -1,0 +1,4153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>Mira Aoki · Creative Technologist</title>
+    <meta
+      name="description"
+      content="Independent creative technologist working between distributed systems, expressive interfaces, and the strange territory where they meet."
+    />
+    <meta property="og:title" content="Mira Aoki · Creative Technologist" />
+    <meta
+      property="og:description"
+      content="Independent creative technologist working between distributed systems, expressive interfaces, and the strange territory where they meet."
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2334d399'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='18' font-weight='600' text-anchor='middle' fill='%230a0a0a'%3EM%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Geist", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: [
+                '"Geist Mono"',
+                "ui-monospace",
+                "SFMono-Regular",
+                "monospace",
+              ],
+            },
+            colors: {
+              bg: "#0a0a0a",
+              surface: "#111111",
+              hairline: "rgba(255,255,255,0.08)",
+              ink: {
+                50: "#fafaf9",
+                100: "#f5f5f4",
+                200: "#e7e5e4",
+                300: "#d6d3d1",
+                400: "#a8a29e",
+                500: "#78716c",
+                600: "#57534e",
+                700: "#3a3531",
+                800: "#272421",
+                900: "#1a1816",
+              },
+              accent: {
+                DEFAULT: "#34d399",
+                dim: "#10b981",
+              },
+            },
+            transitionTimingFunction: {
+              spring: "cubic-bezier(0.32, 0.72, 0, 1)",
+              "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: #0a0a0a;
+        color: #f5f5f4;
+        font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: #34d399;
+        color: #0a0a0a;
+      }
+      .text-balance {
+        text-wrap: balance;
+      }
+
+      /* Fixed grain overlay, pointer-events-none, GPU-safe */
+      .grain-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 60;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      /* Hero radial mesh, fixed to section */
+      .hero-mesh {
+        background-image:
+          radial-gradient(
+            ellipse 80% 60% at 15% -10%,
+            rgba(52, 211, 153, 0.1),
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 60% 50% at 90% 20%,
+            rgba(96, 165, 250, 0.06),
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 50% 40% at 50% 100%,
+            rgba(52, 211, 153, 0.04),
+            transparent 60%
+          );
+      }
+
+      /* Double bezel (Doppelrand) - outer shell */
+      .bezel {
+        position: relative;
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 28px;
+        padding: 1.5px;
+        transition:
+          border-color 500ms cubic-bezier(0.32, 0.72, 0, 1),
+          background 500ms cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .bezel:hover {
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .bezel-inner {
+        background: linear-gradient(180deg, #131313 0%, #0d0d0d 100%);
+        border-radius: calc(28px - 1.5px);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        overflow: hidden;
+      }
+      .bezel-lg {
+        border-radius: 32px;
+        padding: 2px;
+      }
+      .bezel-lg .bezel-inner {
+        border-radius: calc(32px - 2px);
+      }
+
+      /* Pill button with nested icon (button-in-button pattern) */
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 4px 4px 20px;
+        background: #f5f5f4;
+        color: #0a0a0a;
+        border-radius: 999px;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+        transition:
+          transform 400ms cubic-bezier(0.32, 0.72, 0, 1),
+          background 400ms cubic-bezier(0.32, 0.72, 0, 1);
+        white-space: nowrap;
+      }
+      .btn-primary .btn-icon {
+        width: 32px;
+        height: 32px;
+        background: #0a0a0a;
+        color: #f5f5f4;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 12px;
+        transition: transform 400ms cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .btn-primary:hover .btn-icon {
+        transform: translate(2px, -2px) rotate(0deg);
+      }
+      .btn-primary:hover {
+        background: #ffffff;
+      }
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        color: #f5f5f4;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        font-weight: 500;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.02);
+        transition: all 400ms cubic-bezier(0.32, 0.72, 0, 1);
+        white-space: nowrap;
+      }
+      .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+      .btn-ghost:active {
+        transform: scale(0.98);
+      }
+
+      /* Floating glass nav pill */
+      .nav-pill {
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background: rgba(10, 10, 10, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          0 10px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        filter: blur(8px);
+        transition:
+          opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+          transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+          filter 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+      .reveal-d1 {
+        transition-delay: 80ms;
+      }
+      .reveal-d2 {
+        transition-delay: 160ms;
+      }
+      .reveal-d3 {
+        transition-delay: 240ms;
+      }
+      .reveal-d4 {
+        transition-delay: 320ms;
+      }
+      .reveal-d5 {
+        transition-delay: 400ms;
+      }
+
+      /* Marquee */
+      @keyframes marquee {
+        from {
+          transform: translate3d(0, 0, 0);
+        }
+        to {
+          transform: translate3d(-50%, 0, 0);
+        }
+      }
+      .marquee-track {
+        animation: marquee 48s linear infinite;
+        will-change: transform;
+      }
+      .marquee-mask {
+        mask-image: linear-gradient(
+          90deg,
+          transparent 0%,
+          black 8%,
+          black 92%,
+          transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent 0%,
+          black 8%,
+          black 92%,
+          transparent 100%
+        );
+      }
+
+      /* Project card hover */
+      .project-card .project-image {
+        transition: transform 800ms cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .project-card:hover .project-image {
+        transform: scale(1.04);
+      }
+
+      /* Tech stack logo row */
+      .stack-logos {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .stack-logo {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        opacity: 0.7;
+        transition: opacity 400ms cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .project-card:hover .stack-logo {
+        opacity: 1;
+      }
+
+      .project-card .project-arrow {
+        transition:
+          transform 400ms cubic-bezier(0.32, 0.72, 0, 1),
+          background 400ms cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .project-card:hover .project-arrow {
+        transform: translate(2px, -2px);
+        background: #34d399;
+        color: #0a0a0a;
+      }
+
+      /* Category card (tech stack) */
+      .cat-card-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 16 / 10;
+        position: relative;
+        background-image: radial-gradient(
+          ellipse 80% 70% at 20% 0%,
+          rgba(52, 211, 153, 0.1),
+          transparent 60%
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .cat-card-visual h3 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 500;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+      .cat-card-visual--short {
+        aspect-ratio: 16 / 9;
+      }
+      .cat-card-visual--tall {
+        aspect-ratio: 16 / 11;
+      }
+      .stack-logos-lg {
+        gap: 14px;
+      }
+      .stack-logos-lg .stack-logo {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 26px;
+      }
+
+      /* Skill row accordion: chevron + note driven by aria-expanded */
+      .skill-row[aria-expanded="true"] .skill-chevron {
+        transform: rotate(180deg);
+      }
+      .skill-row[aria-expanded="true"] + .skill-note {
+        grid-template-rows: 1fr;
+      }
+      .skill-row:hover {
+        background: rgba(255, 255, 255, 0.025);
+      }
+      .skill-row {
+        transition: background 400ms cubic-bezier(0.32, 0.72, 0, 1);
+      }
+
+      /* Status dot pulse (real semantic state only) */
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.85);
+        }
+      }
+      .pulse-dot {
+        animation: pulse-dot 2.4s ease-in-out infinite;
+      }
+
+      /* Subtle gradient text */
+      .text-gradient {
+        background: linear-gradient(135deg, #f5f5f4 0%, #a8a29e 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* Hairline divider */
+      .hairline {
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Skill list dividers: darker + thinner than default hairline */
+      .skill-divide > li + li {
+        border-top: 1px solid rgba(150, 150, 150, 0.35);
+      }
+
+      /* Tabular nums for stats */
+      .stat-num {
+        font-feature-settings:
+          "tnum" 1,
+          "lnum" 1;
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+        .marquee-track {
+          animation: none;
+        }
+        .pulse-dot {
+          animation: none;
+        }
+      }
+
+      /* Focus visible for keyboard */
+      :focus-visible {
+        outline: 2px solid #34d399;
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline-offset: 4px;
+      }
+
+      /* GitHub contribution heatmap */
+      .gh-grid {
+        display: grid;
+        grid-template-rows: repeat(7, 12px);
+        grid-auto-flow: column;
+        grid-template-columns: repeat(53, minmax(0, 1fr));
+        gap: 3px;
+        width: 100%;
+      }
+      .gh-cell {
+        width: 100%;
+        height: 12px;
+        aspect-ratio: 1 / 1;
+        border-radius: 3px;
+        border: 0;
+        padding: 0;
+        cursor: default;
+      }
+      .gh-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .gh-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .gh-skel {
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .gh-month {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #78716c;
+      }
+
+      .gh-legend-swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        display: inline-block;
+      }
+
+      /* Coding stats section */
+      .cs-row {
+        display: grid;
+        grid-template-columns: 2rem 1fr auto auto;
+        gap: 0.75rem;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .cs-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .cs-row:first-of-type {
+        padding-top: 0;
+      }
+      .cs-rank {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        color: #78716c;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 0.25rem 0.5rem;
+        border-radius: 9999px;
+        text-align: center;
+      }
+      .cs-lang {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 0;
+      }
+      .cs-lang-name {
+        font-weight: 500;
+        font-size: 0.9375rem;
+        color: #f5f5f4;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cs-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .cs-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #34d399 0%, #10b981 100%);
+        border-radius: 2px;
+        transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .cs-time {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #f5f5f4;
+        white-space: nowrap;
+        text-align: right;
+        min-width: 3.5rem;
+      }
+      .cs-percent {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 0.75rem;
+        color: #78716c;
+        white-space: nowrap;
+        text-align: right;
+        min-width: 2.5rem;
+      }
+      .cs-skel {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.04) 0%,
+          rgba(255, 255, 255, 0.08) 50%,
+          rgba(255, 255, 255, 0.04) 100%
+        );
+        background-size: 200% 100%;
+        animation: cs-shimmer 1.5s infinite;
+      }
+      @keyframes cs-shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+      .cs-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        margin-bottom: 0.5rem;
+      }
+      .cs-total {
+        font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 0.8125rem;
+        color: #a8a29e;
+      }
+      .cs-total-value {
+        color: #f5f5f4;
+        font-weight: 500;
+      }
+      @media (max-width: 640px) {
+        .cs-row {
+          grid-template-columns: 1.75rem 1fr;
+          gap: 0.5rem;
+        }
+        .cs-time,
+        .cs-percent {
+          display: none;
+        }
+        .cs-lang-name {
+          font-size: 0.875rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-bg text-ink-100 font-sans">
+    <!-- Fixed grain overlay (GPU-safe, pointer-events-none) -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- Skip to content (a11y) -->
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[80] focus:px-4 focus:py-2 focus:bg-accent focus:text-bg focus:rounded-full focus:text-sm focus:font-medium"
+      >Skip to content</a
+    >
+
+    <!-- Floating glass nav -->
+    <header
+      class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1.5rem)] max-w-3xl"
+    >
+      <nav
+        class="nav-pill rounded-full px-2 py-2 flex items-center justify-between"
+        aria-label="Primary"
+      >
+        <a href="#top" class="flex items-center gap-2.5 pl-3 pr-4 py-1.5">
+          <span
+            class="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-bg font-semibold text-sm"
+            >M</span
+          >
+          <span class="font-medium text-sm tracking-tight">Mira Aoki</span>
+        </a>
+        <ul class="hidden md:flex items-center gap-1 text-sm">
+          <li>
+            <a
+              href="#work"
+              class="px-3 py-1.5 text-ink-300 hover:text-ink-100 transition-colors duration-300 rounded-full"
+              >Work</a
+            >
+          </li>
+          <li>
+            <a
+              href="#approach"
+              class="px-3 py-1.5 text-ink-300 hover:text-ink-100 transition-colors duration-300 rounded-full"
+              >Approach</a
+            >
+          </li>
+          <li>
+            <a
+              href="#notes"
+              class="px-3 py-1.5 text-ink-300 hover:text-ink-100 transition-colors duration-300 rounded-full"
+              >Notes</a
+            >
+          </li>
+        </ul>
+        <a href="#contact" class="btn-primary" aria-label="Start a project">
+          <span class="hidden sm:inline">Start a project</span>
+          <span class="sm:hidden">Contact</span>
+          <span class="btn-icon" aria-hidden="true">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
+          </span>
+        </a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- HERO (Editorial Split) -->
+      <section
+        id="top"
+        class="relative min-h-[100dvh] hero-mesh pt-28 md:pt-32 pb-20 md:pb-24 px-6 md:px-10"
+      >
+        <div
+          class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center"
+        >
+          <!-- Left: identity + headline -->
+          <div class="lg:col-span-7">
+            <div class="reveal">
+              <p
+                class="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-400 mb-7 inline-flex items-center gap-2.5"
+              >
+                <span
+                  class="w-1.5 h-1.5 rounded-full bg-accent pulse-dot"
+                  aria-hidden="true"
+                ></span>
+                Available for select work, Q1 2026
+              </p>
+            </div>
+
+            <h1
+              class="reveal reveal-d1 text-balance text-[clamp(2.75rem,6.8vw,6.25rem)] font-medium tracking-[-0.04em] leading-[0.96] mb-8"
+            >
+              Building resilient systems and the
+              <span
+                class="text-accent italic font-medium"
+                style="font-feature-settings: &quot;ss01&quot;"
+                >interfaces</span
+              >
+              that make them legible.
+            </h1>
+
+            <p
+              class="reveal reveal-d2 text-lg md:text-xl text-ink-300 max-w-2xl leading-[1.55] mb-10"
+            >
+              I am Mira, an independent creative technologist working between
+              distributed systems, expressive UI, and the strange territory
+              where they meet.
+            </p>
+
+            <div class="reveal reveal-d3 flex flex-wrap items-center gap-3">
+              <a href="#contact" class="btn-primary">
+                <span>Start a project</span>
+                <span class="btn-icon" aria-hidden="true">
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </span>
+              </a>
+              <a href="#work" class="btn-ghost">
+                <span>View selected work</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: identity card -->
+          <div class="lg:col-span-5 reveal reveal-d2">
+            <div class="bezel">
+              <div class="bezel-inner p-6 md:p-7">
+                <div class="flex items-start justify-between mb-7">
+                  <div>
+                    <p
+                      class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500 mb-1.5"
+                    >
+                      Now
+                    </p>
+                    <p class="text-sm text-ink-200">
+                      Working from <span class="text-ink-100">Kyoto</span>, JST
+                    </p>
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 border border-accent/25"
+                  >
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-accent pulse-dot"
+                      aria-hidden="true"
+                    ></span>
+                    <span
+                      class="font-mono text-[9.5px] uppercase tracking-[0.18em] text-accent"
+                      >Open</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="aspect-[4/5] rounded-2xl overflow-hidden bg-ink-800 relative mb-6"
+                >
+                  <img
+                    src="https://picsum.photos/seed/mira-aoki-portrait-kyoto-2026/640/800"
+                    alt="Portrait of Mira Aoki"
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent"
+                  ></div>
+                  <div class="absolute bottom-4 left-4 right-4">
+                    <p
+                      class="font-mono text-[9.5px] uppercase tracking-[0.22em] text-ink-300 mb-0.5"
+                    >
+                      Mira Aoki
+                    </p>
+                    <p class="text-sm text-ink-100 font-medium">
+                      Creative technologist
+                    </p>
+                  </div>
+                </div>
+
+                <dl class="grid grid-cols-3 gap-4 pt-5 border-t hairline">
+                  <div>
+                    <dt class="sr-only">Years building</dt>
+                    <dd class="stat-num text-2xl font-medium tracking-tight">
+                      11
+                    </dd>
+                    <p class="text-[11px] text-ink-400 mt-1">Years building</p>
+                  </div>
+                  <div>
+                    <dt class="sr-only">Shipped projects</dt>
+                    <dd class="stat-num text-2xl font-medium tracking-tight">
+                      47
+                    </dd>
+                    <p class="text-[11px] text-ink-400 mt-1">
+                      Shipped projects
+                    </p>
+                  </div>
+                  <div>
+                    <dt class="sr-only">Open source libraries</dt>
+                    <dd class="stat-num text-2xl font-medium tracking-tight">
+                      3
+                    </dd>
+                    <p class="text-[11px] text-ink-400 mt-1">OSS libraries</p>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARQUEE / capabilities strip (single, kinetic) -->
+      <section
+        class="border-y hairline bg-surface/40 py-6 marquee-mask overflow-hidden"
+        aria-label="Capabilities"
+      >
+        <div class="marquee-track flex items-center gap-10 whitespace-nowrap">
+          <!-- set 1 -->
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            >Distributed systems</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            >Real-time interfaces</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            >TypeScript &amp; Rust</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            >Creative tooling</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            >Edge compute</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            >Design systems</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            >Developer experience</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <!-- set 2 (duplicate for seamless loop) -->
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            aria-hidden="true"
+            >Distributed systems</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            aria-hidden="true"
+            >Real-time interfaces</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            aria-hidden="true"
+            >TypeScript &amp; Rust</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            aria-hidden="true"
+            >Creative tooling</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            aria-hidden="true"
+            >Edge compute</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            aria-hidden="true"
+            >Design systems</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+          <span
+            class="font-mono text-sm uppercase tracking-[0.15em] text-ink-300"
+            aria-hidden="true"
+            >Developer experience</span
+          >
+          <span class="text-ink-600" aria-hidden="true">/</span>
+        </div>
+      </section>
+
+      <!-- ABOUT (README + Locations + Education) -->
+      <section id="about" class="px-6 md:px-10 py-20 md:py-28">
+        <div class="max-w-7xl mx-auto">
+          <!-- Naked README + headline (always vertical) -->
+          <div class="flex flex-col gap-10 mb-14 md:mb-20">
+            <div>
+              <h2
+                class="reveal text-balance text-[clamp(2.25rem,5.2vw,4.5rem)] font-medium tracking-[-0.04em] leading-[1.02] pb-2"
+              >
+                A short
+                <span class="text-accent italic font-medium">file</span> , kept
+                current.
+              </h2>
+            </div>
+
+            <div class="reveal reveal-d1">
+              <div
+                class="font-mono text-sm md:text-[15px] leading-[1.75] text-ink-300 space-y-4 max-w-md"
+              >
+                <p>
+                  // based in USA. working remote-first across PT, ET, and
+                  everywhere in between.
+                </p>
+                <p>
+                  // eleven years of shipping distributed systems, expressive
+                  interfaces, and the glue between them. small teams, long
+                  horizons, code i would still respect in five years.
+                </p>
+                <p>
+                  // currently open to select work, q1 2026. briefs welcome.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Locations + Education cards (bezel only here) -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+            <!-- Locations -->
+            <article class="md:col-span-5 reveal reveal-d1">
+              <div class="bezel h-full">
+                <div class="bezel-inner p-6 md:p-7">
+                  <div class="flex items-center justify-between mb-5">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                      >Locations</span
+                    >
+                    <span class="font-mono text-[10px] text-ink-500">USA</span>
+                  </div>
+
+                  <ul class="divide-y hairline">
+                    <li class="flex items-baseline justify-between gap-4 py-3">
+                      <div class="flex items-baseline gap-3 min-w-0">
+                        <span
+                          class="font-mono text-[10px] text-ink-500 w-6 shrink-0"
+                          >01</span
+                        >
+                        <span
+                          class="text-base md:text-lg text-ink-100 font-medium tracking-tight"
+                          >San Francisco, CA</span
+                        >
+                      </div>
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 shrink-0"
+                        >PT</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <!-- Education -->
+            <article class="md:col-span-7 reveal reveal-d2">
+              <div class="bezel h-full">
+                <div class="bezel-inner p-6 md:p-7">
+                  <div class="flex items-center justify-between mb-5">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                      >Education</span
+                    >
+                    <span class="font-mono text-[10px] text-ink-500">USA</span>
+                  </div>
+
+                  <ul class="space-y-4">
+                    <li class="flex items-start gap-4">
+                      <div
+                        class="w-10 h-10 rounded-full bg-accent/10 border border-accent/25 flex items-center justify-center shrink-0"
+                      >
+                        <span
+                          class="font-mono text-[11px] font-semibold text-accent"
+                          >H</span
+                        >
+                      </div>
+                      <div class="min-w-0 flex-1 pt-0.5">
+                        <p
+                          class="text-base md:text-lg text-ink-100 font-medium tracking-tight leading-tight"
+                        >
+                          Harvard University
+                        </p>
+                        <p
+                          class="font-mono text-[11px] uppercase hidden tracking-[0.18em] text-ink-400 mt-1"
+                        >
+                          Cambridge, MA · B.A., Computer Science
+                        </p>
+                      </div>
+                      <div class="shrink-0 pt-0.5 text-right">
+                        <p
+                          class="stat-num text-lg md:text-xl font-medium tracking-tight text-ink-100"
+                        >
+                          3.92
+                        </p>
+                        <p
+                          class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mt-0.5"
+                        >
+                          GPA
+                        </p>
+                      </div>
+                    </li>
+                    <li class="pt-3 border-t hairline hidden">
+                      <p
+                        class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1.5"
+                      >
+                        Bachelor thesis
+                      </p>
+                      <p
+                        class="text-sm md:text-[15px] text-ink-200 leading-[1.55] max-w-2xl"
+                      >
+                        Type-safe effect systems for distributed dataflow,
+                        advised by Prof. Chen. Awarded the Hoopes Prize for
+                        outstanding undergraduate work, 2022.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECH STACK (Stacked header + per-category card/list rows) -->
+      <section
+        id="techstack"
+        class="px-6 md:px-10 py-24 md:py-36 border-t hairline"
+      >
+        <div class="max-w-7xl mx-auto">
+          <!-- Stacked header (no eyebrow, max-w-65ch) -->
+          <div class="max-w-[65ch] mb-14 md:mb-20">
+            <h2
+              class="reveal text-balance text-[clamp(2.25rem,5.2vw,4.5rem)] font-medium tracking-[-0.04em] leading-[1.02] pb-2"
+            >
+              A
+              <span class="text-accent italic font-medium">working</span>
+              toolkit.
+            </h2>
+            <p class="reveal reveal-d1 text-ink-300 text-lg leading-[1.6] mt-6">
+              Sixteen tools across four areas. The card gives the shape; the
+              list gives the stack.
+            </p>
+          </div>
+          <!-- ============================== -->
+          <!-- FRONTEND -->
+          <!-- ============================== -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-10 md:mb-14 items-start"
+          >
+            <article class="md:col-span-5 md:order-1 reveal">
+              <div class="bezel h-full">
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="cat-card-visual">
+                    <h3>Frontend</h3>
+                  </div>
+                  <div class="p-6 md:p-7">
+                    <div
+                      class="stack-logos stack-logos-lg"
+                      aria-label="Frontend stack: Next.js, React, TypeScript, Tailwind CSS"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/nextdotjs/ffffff"
+                        alt="Next.js"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/react/ffffff"
+                        alt="React"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/typescript/ffffff"
+                        alt="TypeScript"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/tailwindcss/ffffff"
+                        alt="Tailwind CSS"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="md:col-span-7 md:order-2 reveal reveal-d1">
+              <div class="bezel h-full">
+                <div class="bezel-inner p-6 md:p-7">
+                  <div class="flex items-center justify-between mb-2">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                      >Frontend</span
+                    >
+                    <span class="font-mono text-[10px] text-ink-500">04</span>
+                  </div>
+                  <ul class="divide-y skill-divide">
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/nextdotjs/ffffff"
+                            alt="Next.js logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Next.js</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Advanced</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">2 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Advanced</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                3 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Built responsive sites using RSC pattern.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/react/ffffff"
+                            alt="React logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >React</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Expert</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">5 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Expert</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                12 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Comfortable with hooks, suspense, and concurrent
+                                rendering.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/typescript/ffffff"
+                            alt="TypeScript logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >TypeScript</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Expert</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">5 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Expert</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                14 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Default for any new JS project. Strict mode
+                                always on.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/tailwindcss/ffffff"
+                            alt="Tailwind CSS logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Tailwind CSS</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Advanced</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">4 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Advanced</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                9 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Utility-first, custom design tokens via CSS
+                                variables.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================== -->
+          <!-- BACKEND -->
+          <!-- ============================== -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-10 md:mb-14 items-start"
+          >
+            <article class="md:col-span-4 md:order-2 reveal">
+              <div class="bezel h-full">
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="cat-card-visual cat-card-visual--short">
+                    <h3>Backend</h3>
+                  </div>
+                  <div class="p-6 md:p-7">
+                    <div
+                      class="stack-logos stack-logos-lg"
+                      aria-label="Backend stack: Rust, Node.js, gRPC, Axum"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/rust/ffffff"
+                        alt="Rust"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/nodedotjs/ffffff"
+                        alt="Node.js"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/grpc/ffffff"
+                        alt="gRPC"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <span
+                        class="stack-logo inline-flex items-center justify-center rounded-full border hairline text-[10px] font-mono text-ink-300"
+                        aria-label="Axum"
+                        >Ax</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="md:col-span-8 md:order-1 reveal reveal-d1">
+              <div class="bezel h-full">
+                <div class="bezel-inner p-6 md:p-7">
+                  <div class="flex items-center justify-between mb-2">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                      >Backend</span
+                    >
+                    <span class="font-mono text-[10px] text-ink-500">04</span>
+                  </div>
+                  <ul class="divide-y skill-divide">
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/rust/ffffff"
+                            alt="Rust logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Rust</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Intermediate</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">2 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Intermediate</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                4 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Ownership model clicked; reach for it on
+                                perf-critical paths.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/rust/ffffff"
+                            alt="Axum logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Axum</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Intermediate</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">1 year</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Intermediate</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                2 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Tower middleware, minimal boilerplate.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/nodedotjs/ffffff"
+                            alt="Node.js logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Node.js</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Advanced</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">6 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Advanced</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                10 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Mostly behind a typed wrapper these days.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/grpc/ffffff"
+                            alt="gRPC logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >gRPC</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Intermediate</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">1 year</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Intermediate</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                2 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Protobuf schemas + tonic clients on the server
+                                side.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================== -->
+          <!-- DATABASE -->
+          <!-- ============================== -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-10 md:mb-14 items-start"
+          >
+            <article class="md:col-span-6 md:order-1 reveal">
+              <div class="bezel h-full">
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="cat-card-visual cat-card-visual--tall">
+                    <h3>Database</h3>
+                  </div>
+                  <div class="p-6 md:p-7">
+                    <div
+                      class="stack-logos stack-logos-lg"
+                      aria-label="Database stack: PostgreSQL, Redis, SQLite, MongoDB"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/postgresql/ffffff"
+                        alt="PostgreSQL"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/redis/ffffff"
+                        alt="Redis"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/sqlite/ffffff"
+                        alt="SQLite"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/mongodb/ffffff"
+                        alt="MongoDB"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="md:col-span-6 md:order-2 reveal reveal-d1">
+              <div class="bezel h-full">
+                <div class="bezel-inner p-6 md:p-7">
+                  <div class="flex items-center justify-between mb-2">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                      >Database</span
+                    >
+                    <span class="font-mono text-[10px] text-ink-500">04</span>
+                  </div>
+                  <ul class="divide-y skill-divide">
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/postgresql/ffffff"
+                            alt="PostgreSQL logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >PostgreSQL</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Advanced</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">6 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Advanced</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                11 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Default DB. Window functions, CTEs, JSONB when
+                                needed.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/redis/ffffff"
+                            alt="Redis logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Redis</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Intermediate</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">4 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Intermediate</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                6 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Cache, queues, pub/sub. Never as a primary
+                                store.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/sqlite/ffffff"
+                            alt="SQLite logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >SQLite</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Intermediate</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">3 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Intermediate</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                4 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Single-file apps, local-first tools, embedded
+                                analytics.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/mongodb/ffffff"
+                            alt="MongoDB logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >MongoDB</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Junior</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">1 year</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Junior</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                1 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Document fits when shape genuinely varies. Rare.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================== -->
+          <!-- DEPLOYMENT -->
+          <!-- ============================== -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 items-start"
+          >
+            <article class="md:col-span-5 md:order-2 reveal">
+              <div class="bezel h-full">
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="cat-card-visual cat-card-visual--short">
+                    <h3>Deployment</h3>
+                  </div>
+                  <div class="p-6 md:p-7">
+                    <div
+                      class="stack-logos stack-logos-lg"
+                      aria-label="Deployment stack: Vercel, Cloudflare, Docker, GitHub Actions"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/vercel/ffffff"
+                        alt="Vercel"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/cloudflare/ffffff"
+                        alt="Cloudflare"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/docker/ffffff"
+                        alt="Docker"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/githubactions/ffffff"
+                        alt="GitHub Actions"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="md:col-span-7 md:order-1 reveal reveal-d1">
+              <div class="bezel h-full">
+                <div class="bezel-inner p-6 md:p-7">
+                  <div class="flex items-center justify-between mb-2">
+                    <span
+                      class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                      >Deployment</span
+                    >
+                    <span class="font-mono text-[10px] text-ink-500">04</span>
+                  </div>
+                  <ul class="divide-y skill-divide">
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/vercel/ffffff"
+                            alt="Vercel logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Vercel</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Advanced</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">3 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Advanced</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                7 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Edge runtime + ISR for content sites; CI by
+                                default.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/cloudflare/ffffff"
+                            alt="Cloudflare logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Cloudflare</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Intermediate</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">2 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Intermediate</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                4 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Workers for small compute, R2 for blobs, DNS for
+                                everything.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/docker/ffffff"
+                            alt="Docker logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >Docker</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Advanced</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">4 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Advanced</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                8 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Multi-stage images, distroless when I can.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="skill-row w-full flex items-center justify-between gap-4 py-3.5 text-left"
+                        aria-expanded="false"
+                      >
+                        <div class="flex items-center gap-4 min-w-0">
+                          <img
+                            src="https://cdn.simpleicons.org/githubactions/ffffff"
+                            alt="GitHub Actions logo"
+                            class="w-5 h-5 shrink-0 opacity-80"
+                            loading="lazy"
+                          />
+                          <span
+                            class="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate"
+                            >GitHub Actions</span
+                          >
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                          <span
+                            class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 rounded-full border hairline"
+                            >Advanced</span
+                          >
+                          <svg
+                            class="skill-chevron w-4 h-4 text-ink-400 transition-transform duration-400 ease-spring"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </div>
+                      </button>
+                      <div
+                        class="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
+                      >
+                        <div class="overflow-hidden">
+                          <dl
+                            class="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-10 pr-4"
+                          >
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Experience
+                              </dt>
+                              <dd class="text-sm text-ink-100">4 years</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Proficiency
+                              </dt>
+                              <dd class="text-sm text-ink-100">Advanced</dd>
+                            </div>
+                            <div>
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Projects
+                              </dt>
+                              <dd class="text-sm text-ink-100 stat-num">
+                                9 projects
+                              </dd>
+                            </div>
+                            <div class="col-span-2">
+                              <dt
+                                class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1"
+                              >
+                                Notes
+                              </dt>
+                              <dd class="text-sm text-ink-200 leading-[1.55]">
+                                Reusable workflows, matrix builds, OIDC to
+                                cloud.
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS (Tabs + Bento) -->
+      <section id="work" class="px-6 md:px-10 py-24 md:py-36">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10 md:mb-12">
+            <div class="lg:col-span-7 reveal">
+              <h2
+                class="text-balance text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.035em] leading-[1.02]"
+              >
+                Projects, picked by
+                <span class="text-accent italic font-medium">craft</span>.
+              </h2>
+            </div>
+            <div class="lg:col-span-5 flex lg:items-end reveal reveal-d1">
+              <p class="text-ink-300 text-lg leading-[1.55] max-w-md">
+                Seven things from the last 24 months. Filter by surface,
+                shipped, still in production somewhere.
+              </p>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div
+            class="reveal reveal-d2 flex flex-wrap items-center gap-2 mb-10 md:mb-14"
+            role="tablist"
+            aria-label="Filter projects by category"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected="true"
+              data-tab="all"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-accent text-bg transition-all duration-400 ease-spring"
+            >
+              All
+              <span class="font-mono text-[10px] ml-1.5 opacity-70">7</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-tab="frontend"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium border hairline bg-ink-50/5 text-ink-200 hover:bg-ink-50/10 hover:text-ink-100 transition-all duration-400 ease-spring"
+            >
+              Frontend
+              <span class="font-mono text-[10px] ml-1.5 opacity-70">2</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-tab="backend"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium border hairline bg-ink-50/5 text-ink-200 hover:bg-ink-50/10 hover:text-ink-100 transition-all duration-400 ease-spring"
+            >
+              Backend
+              <span class="font-mono text-[10px] ml-1.5 opacity-70">5</span>
+            </button>
+          </div>
+
+          <!-- Grid (12-col bento, switches to 2-col uniform on category views) -->
+          <div
+            id="projects-grid"
+            class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-fr"
+          >
+            <!-- Helix: backend, spans 7 cols and 2 rows -->
+            <article class="md:col-span-7 reveal in" data-cat="backend">
+              <a
+                href="#"
+                class="project-card bezel bezel-lg block h-full"
+                aria-label="Helix, distributed build orchestrator"
+              >
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="aspect-[16/10] overflow-hidden relative">
+                    <img
+                      src="https://picsum.photos/seed/helix-build-orchestrator-2025/1200/750"
+                      alt="Helix distributed build orchestrator dashboard"
+                      class="project-image w-full h-full object-cover"
+                    />
+                    <div
+                      class="absolute inset-0 bg-gradient-to-t from-bg/40 via-transparent to-transparent"
+                    ></div>
+                  </div>
+                  <div class="p-6 md:p-8 flex flex-col flex-1">
+                    <div class="flex items-center justify-between mb-4">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                        >2025 · Distributed systems</span
+                      >
+                      <span
+                        class="project-arrow w-8 h-8 rounded-full bg-ink-50/5 text-ink-100 flex items-center justify-center"
+                      >
+                        <svg
+                          width="13"
+                          height="13"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M7 17L17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="stack-logos mb-4"
+                      aria-label="Stack: Rust, Axum, Postgres, Redis"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/rust/ffffff"
+                        alt="Rust"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/postgresql/ffffff"
+                        alt="Postgres"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/redis/ffffff"
+                        alt="Redis"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <span
+                        class="stack-logo inline-flex items-center justify-center rounded-full border hairline text-[9px] font-mono text-ink-300"
+                        aria-label="Axum"
+                        >Ax</span
+                      >
+                    </div>
+                    <h3
+                      class="text-2xl md:text-3xl font-medium tracking-[-0.02em] mb-2"
+                    >
+                      Helix
+                    </h3>
+                    <p class="text-ink-300 leading-[1.55] max-w-xl">
+                      A build orchestrator that treats your CI graph as a
+                      first-class data structure. Cached, parallel, and
+                      predictable across fleets of a thousand nodes.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <!-- Tessera: backend -->
+            <article
+              class="md:col-span-5 reveal reveal-d1 in"
+              data-cat="backend"
+            >
+              <a
+                href="#"
+                class="project-card bezel block h-full"
+                aria-label="Tessera, vector retrieval engine"
+              >
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="aspect-[16/9] overflow-hidden">
+                    <img
+                      src="https://picsum.photos/seed/tessera-vector-retrieval-2025/800/450"
+                      alt="Tessera vector retrieval engine"
+                      class="project-image w-full h-full object-cover"
+                    />
+                  </div>
+                  <div class="p-5 md:p-6 flex flex-col flex-1">
+                    <div class="flex items-center justify-between mb-3">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                        >2025 · Search</span
+                      >
+                      <span
+                        class="project-arrow w-7 h-7 rounded-full bg-ink-50/5 text-ink-100 flex items-center justify-center"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M7 17L17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="stack-logos mb-3"
+                      aria-label="Stack: Rust, Axum, gRPC, ONNX"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/rust/ffffff"
+                        alt="Rust"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/grpc/ffffff"
+                        alt="gRPC"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <span
+                        class="stack-logo inline-flex items-center justify-center rounded-full border hairline text-[9px] font-mono text-ink-300"
+                        aria-label="Axum"
+                        >Ax</span
+                      >
+                      <span
+                        class="stack-logo inline-flex items-center justify-center rounded-full border hairline text-[9px] font-mono text-ink-300"
+                        aria-label="ONNX Runtime"
+                        >On</span
+                      >
+                    </div>
+                    <h3 class="text-xl font-medium tracking-tight mb-1.5">
+                      Tessera
+                    </h3>
+                    <p class="text-ink-300 text-sm leading-[1.55]">
+                      Vector retrieval engine with on-device hybrid ranking. 4ms
+                      p99 on a phone.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <!-- Driftwood: backend -->
+            <article
+              class="md:col-span-5 reveal reveal-d2 in"
+              data-cat="backend"
+            >
+              <a
+                href="#"
+                class="project-card bezel block h-full"
+                aria-label="Driftwood, real-time collaboration SDK"
+              >
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="aspect-[16/9] overflow-hidden">
+                    <img
+                      src="https://picsum.photos/seed/driftwood-collab-sdk-2024/800/450"
+                      alt="Driftwood real-time collaboration SDK"
+                      class="project-image w-full h-full object-cover"
+                    />
+                  </div>
+                  <div class="p-5 md:p-6 flex flex-col flex-1">
+                    <div class="flex items-center justify-between mb-3">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                        >2024 · SDK</span
+                      >
+                      <span
+                        class="project-arrow w-7 h-7 rounded-full bg-ink-50/5 text-ink-100 flex items-center justify-center"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M7 17L17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="stack-logos mb-3"
+                      aria-label="Stack: TypeScript, Rust, WebSockets, CRDT"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/typescript/ffffff"
+                        alt="TypeScript"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/rust/ffffff"
+                        alt="Rust"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/socketdotio/ffffff"
+                        alt="Socket.IO"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <span
+                        class="stack-logo inline-flex items-center justify-center rounded-full border hairline text-[9px] font-mono text-ink-300"
+                        aria-label="CRDT"
+                        >CR</span
+                      >
+                    </div>
+                    <h3 class="text-xl font-medium tracking-tight mb-1.5">
+                      Driftwood
+                    </h3>
+                    <p class="text-ink-300 text-sm leading-[1.55]">
+                      A CRDT collaboration SDK that ships under 12kb gzipped,
+                      with offline-first sync.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <!-- Polar: backend -->
+            <article
+              class="md:col-span-7 reveal reveal-d1 in"
+              data-cat="backend"
+            >
+              <a
+                href="#"
+                class="project-card bezel block h-full"
+                aria-label="Polar, observability mesh"
+              >
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="aspect-[16/9] overflow-hidden">
+                    <img
+                      src="https://picsum.photos/seed/polar-observability-mesh-2024/900/500"
+                      alt="Polar observability mesh for edge workloads"
+                      class="project-image w-full h-full object-cover"
+                    />
+                  </div>
+                  <div class="p-5 md:p-6 flex flex-col flex-1">
+                    <div class="flex items-center justify-between mb-3">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                        >2024 · Infrastructure</span
+                      >
+                      <span
+                        class="project-arrow w-7 h-7 rounded-full bg-ink-50/5 text-ink-100 flex items-center justify-center"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M7 17L17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="stack-logos mb-3"
+                      aria-label="Stack: Rust, OpenTelemetry, Prometheus, Grafana"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/rust/ffffff"
+                        alt="Rust"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/prometheus/ffffff"
+                        alt="Prometheus"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/grafana/ffffff"
+                        alt="Grafana"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <span
+                        class="stack-logo inline-flex items-center justify-center rounded-full border hairline text-[9px] font-mono text-ink-300"
+                        aria-label="OpenTelemetry"
+                        >OT</span
+                      >
+                    </div>
+                    <h3 class="text-xl font-medium tracking-tight mb-1.5">
+                      Polar
+                    </h3>
+                    <p class="text-ink-300 text-sm leading-[1.55]">
+                      Observability mesh for edge workloads. OpenTelemetry,
+                      without the YAML.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <!-- Sentinel: backend -->
+
+            <!-- Atlas: frontend -->
+            <article
+              class="md:col-span-7 reveal reveal-d1 in"
+              data-cat="frontend"
+            >
+              <a
+                href="#"
+                class="project-card bezel block h-full"
+                aria-label="Atlas, design system"
+              >
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="aspect-[16/9] overflow-hidden">
+                    <img
+                      src="https://picsum.photos/seed/atlas-design-system-2025/900/500"
+                      alt="Atlas design system component library"
+                      class="project-image w-full h-full object-cover"
+                    />
+                  </div>
+                  <div class="p-5 md:p-6 flex flex-col flex-1">
+                    <div class="flex items-center justify-between mb-3">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                        >2025 · Design system</span
+                      >
+                      <span
+                        class="project-arrow w-7 h-7 rounded-full bg-ink-50/5 text-ink-100 flex items-center justify-center"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M7 17L17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="stack-logos mb-3"
+                      aria-label="Stack: React, TypeScript, Tailwind, Storybook"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/react/ffffff"
+                        alt="React"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/typescript/ffffff"
+                        alt="TypeScript"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/tailwindcss/ffffff"
+                        alt="Tailwind CSS"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/storybook/ffffff"
+                        alt="Storybook"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 class="text-xl font-medium tracking-tight mb-1.5">
+                      Atlas
+                    </h3>
+                    <p class="text-ink-300 text-sm leading-[1.55]">
+                      A typed component library with documented primitives,
+                      tokens, and motion. Built so the next product ships in
+                      days, not weeks.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <!-- Lumen: frontend -->
+            <article
+              class="md:col-span-5 reveal reveal-d2 in"
+              data-cat="frontend"
+            >
+              <a
+                href="#"
+                class="project-card bezel block h-full"
+                aria-label="Lumen, real-time collaborative canvas"
+              >
+                <div class="bezel-inner h-full flex flex-col">
+                  <div class="aspect-[16/9] overflow-hidden">
+                    <img
+                      src="https://picsum.photos/seed/lumen-collab-canvas-2025/900/500"
+                      alt="Lumen real-time collaborative canvas"
+                      class="project-image w-full h-full object-cover"
+                    />
+                  </div>
+                  <div class="p-5 md:p-6 flex flex-col flex-1">
+                    <div class="flex items-center justify-between mb-3">
+                      <span
+                        class="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400"
+                        >2025 · Interface</span
+                      >
+                      <span
+                        class="project-arrow w-7 h-7 rounded-full bg-ink-50/5 text-ink-100 flex items-center justify-center"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M7 17L17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="stack-logos mb-3"
+                      aria-label="Stack: React, Vite, TypeScript, WebSockets"
+                    >
+                      <img
+                        src="https://cdn.simpleicons.org/react/ffffff"
+                        alt="React"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/vite/ffffff"
+                        alt="Vite"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/typescript/ffffff"
+                        alt="TypeScript"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                      <img
+                        src="https://cdn.simpleicons.org/socketdotio/ffffff"
+                        alt="Socket.IO"
+                        class="stack-logo"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 class="text-xl font-medium tracking-tight mb-1.5">
+                      Lumen
+                    </h3>
+                    <p class="text-ink-300 text-sm leading-[1.55]">
+                      A real-time collaborative canvas for data viz. 60fps
+                      cursors, optimistic updates, zero perceptible lag.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- GITHUB CONTRIBUTION (heatmap + stats) -->
+      <section
+        id="github-contrib"
+        class="px-6 md:px-10 py-24 md:py-36 border-t hairline"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="reveal mb-12 md:mb-16">
+            <h2
+              class="text-3xl md:text-4xl lg:text-5xl font-medium tracking-[-0.03em] leading-[1.05] mb-4 max-w-2xl text-balance"
+            >
+              What 2026 looked like, in
+              <span class="text-accent italic font-medium">pixels</span>.
+            </h2>
+            <p class="text-ink-300 leading-[1.6] max-w-xl">
+              Pulled live from GitHub. Quiet weeks and loud ones, no edits.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 2xl:gap-8">
+            <!-- LEFT: heatmap -->
+            <div class="reveal reveal-d1">
+              <div class="bezel">
+                <div class="bezel-inner p-5 md:p-7">
+                  <div class="flex items-start justify-between mb-5">
+                    <div>
+                      <p
+                        class="text-[10px] uppercase tracking-[0.18em] text-ink-400 font-mono mb-1.5"
+                      >
+                        Contribution graph
+                      </p>
+                      <p
+                        id="gh-range"
+                        class="text-sm text-ink-200 font-mono tracking-[-0.01em]"
+                      >
+                        —
+                      </p>
+                    </div>
+                    <a
+                      href="https://github.com/sysFaisal"
+                      target="_blank"
+                      rel="noopener"
+                      class="text-xs font-mono text-ink-400 hover:text-ink-100 transition-colors duration-300 inline-flex items-center gap-1.5"
+                    >
+                      @sysFaisal
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M7 17L17 7" />
+                        <path d="M7 7h10v10" />
+                      </svg>
+                    </a>
+                  </div>
+
+                  <div
+                    id="gh-heatmap"
+                    class="gh-grid"
+                    role="figure"
+                    aria-label="GitHub contribution graph"
+                  >
+                    <!-- Skeleton cells (replaced by JS once data arrives) -->
+                  </div>
+
+                  <div
+                    class="flex items-center justify-between mt-5 text-[10px] uppercase tracking-[0.18em] text-ink-400 font-mono"
+                  >
+                    <span>Last 12 months</span>
+                    <div class="flex items-center gap-1.5">
+                      <span>Less</span>
+                      <span
+                        class="gh-legend-swatch"
+                        style="background: rgba(255, 255, 255, 0.04)"
+                        aria-hidden="true"
+                      ></span>
+                      <span
+                        class="gh-legend-swatch"
+                        style="background: rgba(57, 211, 83, 0.18)"
+                        aria-hidden="true"
+                      ></span>
+                      <span
+                        class="gh-legend-swatch"
+                        style="background: rgba(57, 211, 83, 0.4)"
+                        aria-hidden="true"
+                      ></span>
+                      <span
+                        class="gh-legend-swatch"
+                        style="background: rgba(57, 211, 83, 0.7)"
+                        aria-hidden="true"
+                      ></span>
+                      <span
+                        class="gh-legend-swatch"
+                        style="background: #39d353"
+                        aria-hidden="true"
+                      ></span>
+                      <span>More</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p
+                id="gh-error"
+                class="hidden mt-4 text-xs font-mono text-ink-400"
+              >
+                GitHub activity unavailable. Try
+                <a
+                  class="underline hover:text-ink-100 transition-colors duration-300"
+                  href="https://github.com/sysFaisal"
+                  target="_blank"
+                  rel="noopener"
+                  >github.com/sysFaisal</a
+                >
+                directly.
+              </p>
+            </div>
+
+            <!-- BOTTOM: stats (4 columns in one row at all sizes) -->
+            <div class="grid grid-cols-4 gap-3 reveal reveal-d2">
+              <div class="bezel">
+                <div class="bezel-inner p-5">
+                  <p
+                    class="text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-3"
+                  >
+                    Contributions in 2026
+                  </p>
+                  <p
+                    id="gh-total"
+                    class="font-mono text-4xl md:text-5xl tracking-[-0.04em] leading-none text-ink-50"
+                  >
+                    —
+                  </p>
+                </div>
+              </div>
+              <div class="bezel">
+                <div class="bezel-inner p-5">
+                  <p
+                    class="text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-3"
+                  >
+                    Current streak
+                  </p>
+                  <p
+                    class="font-mono text-4xl md:text-5xl tracking-[-0.04em] leading-none text-ink-50"
+                  >
+                    <span id="gh-current">—</span
+                    ><span class="text-ink-400 text-2xl ml-1">d</span>
+                  </p>
+                </div>
+              </div>
+              <div class="bezel">
+                <div class="bezel-inner p-5">
+                  <p
+                    class="text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-3"
+                  >
+                    Longest streak
+                  </p>
+                  <p
+                    class="font-mono text-4xl md:text-5xl tracking-[-0.04em] leading-none text-ink-50"
+                  >
+                    <span id="gh-longest">—</span
+                    ><span class="text-ink-400 text-2xl ml-1">d</span>
+                  </p>
+                </div>
+              </div>
+              <div class="bezel">
+                <div class="bezel-inner p-5">
+                  <p
+                    class="text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-3"
+                  >
+                    Best day
+                  </p>
+                  <p
+                    id="gh-best"
+                    class="font-mono text-4xl md:text-5xl tracking-[-0.04em] leading-none text-ink-50"
+                  >
+                    —
+                  </p>
+                  <p
+                    id="gh-best-date"
+                    class="text-xs text-ink-400 mt-2 font-mono"
+                  >
+                    —
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CODING STATS (wakapi integration with fallback) -->
+      <section
+        id="coding-stats"
+        class="px-6 md:px-10 py-24 md:py-36 border-t hairline"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="reveal mb-12 md:mb-16">
+            <h2
+              class="text-3xl md:text-4xl lg:text-5xl font-medium tracking-[-0.03em] leading-[1.05] mb-4 max-w-2xl text-balance"
+            >
+              Where the
+              <span class="text-accent italic font-medium">hours</span> go.
+            </h2>
+            <p class="text-ink-300 leading-[1.6] max-w-xl">
+              Time tracked across languages. Real data, no guesses.
+            </p>
+          </div>
+
+          <div class="reveal reveal-d1">
+            <div class="bezel">
+              <div class="bezel-inner p-5 pb-5 md:p-7 md:pb-12">
+                <div class="cs-header">
+                  <p
+                    class="text-[10px] uppercase tracking-[0.18em] text-ink-400 font-mono mb-0"
+                  >
+                    Language breakdown
+                  </p>
+                  <p class="cs-total" id="cs-summary">
+                    <span class="cs-total-value" id="cs-total-hours">—</span>
+                    tracked · <span id="cs-days">—</span> days
+                  </p>
+                </div>
+
+                <div id="cs-languages">
+                  <div class="cs-row">
+                    <span class="cs-rank cs-skel">&nbsp;</span>
+                    <div class="cs-lang">
+                      <span class="cs-lang-name cs-skel"
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                      >
+                      <div class="cs-bar">
+                        <div class="cs-fill cs-skel" style="width: 70%"></div>
+                      </div>
+                    </div>
+                    <span class="cs-time cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                    <span class="cs-percent cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                  <div class="cs-row">
+                    <span class="cs-rank cs-skel">&nbsp;</span>
+                    <div class="cs-lang">
+                      <span class="cs-lang-name cs-skel"
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                      >
+                      <div class="cs-bar">
+                        <div class="cs-fill cs-skel" style="width: 50%"></div>
+                      </div>
+                    </div>
+                    <span class="cs-time cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                    <span class="cs-percent cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                  <div class="cs-row">
+                    <span class="cs-rank cs-skel">&nbsp;</span>
+                    <div class="cs-lang">
+                      <span class="cs-lang-name cs-skel"
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                      >
+                      <div class="cs-bar">
+                        <div class="cs-fill cs-skel" style="width: 35%"></div>
+                      </div>
+                    </div>
+                    <span class="cs-time cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                    <span class="cs-percent cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                  <div class="cs-row">
+                    <span class="cs-rank cs-skel">&nbsp;</span>
+                    <div class="cs-lang">
+                      <span class="cs-lang-name cs-skel"
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                      >
+                      <div class="cs-bar">
+                        <div class="cs-fill cs-skel" style="width: 25%"></div>
+                      </div>
+                    </div>
+                    <span class="cs-time cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                    <span class="cs-percent cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                  <div class="cs-row">
+                    <span class="cs-rank cs-skel">&nbsp;</span>
+                    <div class="cs-lang">
+                      <span class="cs-lang-name cs-skel"
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                      >
+                      <div class="cs-bar">
+                        <div class="cs-fill cs-skel" style="width: 18%"></div>
+                      </div>
+                    </div>
+                    <span class="cs-time cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                    <span class="cs-percent cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                  <div class="cs-row" style="border-bottom: none">
+                    <span class="cs-rank cs-skel">&nbsp;</span>
+                    <div class="cs-lang">
+                      <span class="cs-lang-name cs-skel"
+                        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+                      >
+                      <div class="cs-bar">
+                        <div class="cs-fill cs-skel" style="width: 12%"></div>
+                      </div>
+                    </div>
+                    <span class="cs-time cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                    <span class="cs-percent cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                </div>
+
+                <p
+                  id="cs-error"
+                  class="hidden mt-4 text-xs font-mono text-ink-400"
+                >
+                  Coding stats unavailable. Using cached data.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- APPROACH (split: principle left, points right) -->
+
+      <!-- CONTACT (centered full-width CTA) -->
+      <section
+        id="contact"
+        class="px-6 md:px-10 py-24 md:py-36 border-t hairline"
+      >
+        <div class="max-w-6xl mx-auto">
+          <div class="bezel bezel-lg">
+            <div
+              class="bezel-inner px-8 py-16 md:px-20 md:py-24 lg:py-28 text-center relative overflow-hidden"
+            >
+              <!-- Decorative radial accent -->
+              <div
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/8 rounded-full blur-3xl pointer-events-none"
+                aria-hidden="true"
+              ></div>
+
+              <div class="relative">
+                <h2
+                  class="reveal text-balance text-5xl md:text-7xl lg:text-[5.5rem] font-medium tracking-[-0.04em] leading-[0.95] mb-7 max-w-3xl mx-auto"
+                >
+                  Tell me what you are
+                  <span class="text-accent italic font-medium">building</span>.
+                </h2>
+                <p
+                  class="reveal reveal-d1 text-ink-300 text-lg max-w-xl mx-auto leading-[1.6] mb-10"
+                >
+                  Briefs under a paragraph are welcome. I usually reply within
+                  two days, often with a question or two.
+                </p>
+                <div
+                  class="reveal reveal-d2 flex flex-wrap items-center justify-center gap-3"
+                >
+                  <a href="mailto:hello@miraaoki.com" class="btn-primary">
+                    <span>Start a project</span>
+                    <span class="btn-icon" aria-hidden="true">
+                      <svg
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M7 17L17 7" />
+                        <path d="M7 7h10v10" />
+                      </svg>
+                    </span>
+                  </a>
+                  <a href="#" class="btn-ghost">
+                    <span>Read my writing</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="px-6 md:px-10 py-10 md:py-12 border-t hairline">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+      >
+        <div class="flex items-center gap-3">
+          <span
+            class="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-bg font-semibold text-sm"
+            aria-hidden="true"
+            >M</span
+          >
+          <div>
+            <p class="text-sm font-medium">Mira Aoki</p>
+            <p class="text-xs text-ink-400 font-mono">
+              Kyoto, JP · JST (UTC+09:00)
+            </p>
+          </div>
+        </div>
+
+        <nav
+          aria-label="Social"
+          class="flex items-center gap-5 text-sm text-ink-300"
+        >
+          <a href="#" class="hover:text-ink-100 transition-colors duration-300"
+            >GitHub</a
+          >
+          <a href="#" class="hover:text-ink-100 transition-colors duration-300"
+            >Read.cv</a
+          >
+          <a href="#" class="hover:text-ink-100 transition-colors duration-300"
+            >Mastodon</a
+          >
+          <a
+            href="mailto:hello@miraaoki.com"
+            class="hover:text-ink-100 transition-colors duration-300"
+            >Email</a
+          >
+        </nav>
+
+        <p class="text-xs text-ink-500 font-mono">© 2026 Mira Aoki</p>
+      </div>
+    </footer>
+
+    <!-- Scroll-reveal via IntersectionObserver (no scroll listener) -->
+    <script>
+      (function () {
+        const els = document.querySelectorAll(".reveal");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach(function (el) {
+            el.classList.add("in");
+          });
+          return;
+        }
+        const obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
+        );
+        els.forEach(function (el) {
+          obs.observe(el);
+        });
+      })();
+
+      // Projects tab switcher
+      (function () {
+        var tabs = document.querySelectorAll(".tab-btn");
+        var grid = document.getElementById("projects-grid");
+        var cards = document.querySelectorAll("[data-cat]");
+        if (!tabs.length || !grid) return;
+
+        function activate(name) {
+          tabs.forEach(function (t) {
+            var active = t.getAttribute("data-tab") === name;
+            t.setAttribute("aria-selected", active ? "true" : "false");
+            if (active) {
+              t.className =
+                "tab-btn px-5 py-2 rounded-full text-sm font-medium bg-accent text-bg transition-all duration-400 ease-spring";
+            } else {
+              t.className =
+                "tab-btn px-5 py-2 rounded-full text-sm font-medium border hairline bg-ink-50/5 text-ink-200 hover:bg-ink-50/10 hover:text-ink-100 transition-all duration-400 ease-spring";
+            }
+          });
+
+          cards.forEach(function (c) {
+            var match = name === "all" || c.getAttribute("data-cat") === name;
+            c.classList.toggle("hidden", !match);
+          });
+        }
+
+        tabs.forEach(function (t) {
+          t.addEventListener("click", function () {
+            activate(t.getAttribute("data-tab"));
+          });
+          t.addEventListener("keydown", function (e) {
+            var keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
+            if (keys.indexOf(e.key) === -1) return;
+            var list = Array.prototype.slice.call(tabs);
+            var idx = list.indexOf(t);
+            if (e.key === "ArrowRight") idx = (idx + 1) % list.length;
+            if (e.key === "ArrowLeft")
+              idx = (idx - 1 + list.length) % list.length;
+            if (e.key === "Home") idx = 0;
+            if (e.key === "End") idx = list.length - 1;
+            list[idx].focus();
+            list[idx].click();
+            e.preventDefault();
+          });
+        });
+      })();
+
+      // Skill accordion: toggle note panel per row
+      (function () {
+        var rows = document.querySelectorAll(".skill-row");
+        if (!rows.length) return;
+        rows.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var expanded = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", expanded ? "false" : "true");
+            var note = btn.parentElement.querySelector(".skill-note");
+            if (note) {
+              note.classList.toggle("grid-rows-[1fr]", !expanded);
+              note.classList.toggle("grid-rows-[0fr]", expanded);
+            }
+          });
+        });
+      })();
+
+      // GitHub contribution heatmap (live fetch + stats)
+      (function () {
+        var USERNAME = "sysFaisal";
+        var ENDPOINT =
+          "https://api.github.com/users/" + USERNAME + "/contributions";
+        var TIMEOUT_MS = 4000;
+
+        var grid = document.getElementById("gh-heatmap");
+        if (!grid) return;
+
+        var SKELETON_COUNT = 371;
+        var LEVELS = [
+          "rgba(255,255,255,0.04)",
+          "rgba(57,211,83,0.18)",
+          "rgba(57,211,83,0.40)",
+          "rgba(57,211,83,0.70)",
+          "#39d353",
+        ];
+
+        function paintSkeleton() {
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < SKELETON_COUNT; i++) {
+            var s = document.createElement("div");
+            s.className = "gh-cell gh-skel";
+            s.setAttribute("aria-hidden", "true");
+            frag.appendChild(s);
+          }
+          grid.appendChild(frag);
+        }
+
+        function levelFor(count) {
+          if (count <= 0) return 0;
+          if (count <= 3) return 1;
+          if (count <= 6) return 2;
+          if (count <= 9) return 3;
+          return 4;
+        }
+
+        function colorForLevel(lvl) {
+          return LEVELS[lvl];
+        }
+
+        function fmtNum(n) {
+          return n.toLocaleString("en-US");
+        }
+
+        function fmtMonth(date) {
+          return date.toLocaleString("en-US", {
+            month: "short",
+            year: "numeric",
+          });
+        }
+
+        function fmtBestDate(iso) {
+          var d = new Date(iso + "T00:00:00Z");
+          return d.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            timeZone: "UTC",
+          });
+        }
+
+        function renderError() {
+          var err = document.getElementById("gh-error");
+          if (err) err.classList.remove("hidden");
+        }
+
+        function computeStats(days) {
+          var total = 0;
+          var bestCount = 0;
+          var bestDate = "";
+          for (var i = 0; i < days.length; i++) {
+            var c = days[i].contributionCount;
+            total += c;
+            if (c > bestCount) {
+              bestCount = c;
+              bestDate = days[i].date;
+            }
+          }
+          var longest = 0;
+          var run = 0;
+          var current = 0;
+          for (var j = 0; j < days.length; j++) {
+            if (days[j].contributionCount > 0) {
+              run++;
+              if (run > longest) longest = run;
+            } else {
+              run = 0;
+            }
+          }
+          for (var k = days.length - 1; k >= 0; k--) {
+            if (days[k].contributionCount > 0) current++;
+            else break;
+          }
+          return {
+            total: total,
+            longest: longest,
+            current: current,
+            bestCount: bestCount,
+            bestDate: bestDate,
+          };
+        }
+
+        function render(calendar) {
+          grid.innerHTML = "";
+          var weeks = calendar.weeks || [];
+          var flat = [];
+          for (var i = 0; i < weeks.length; i++) {
+            for (var j = 0; j < weeks[i].contributionDays.length; j++) {
+              flat.push(weeks[i].contributionDays[j]);
+            }
+          }
+
+          var frag = document.createDocumentFragment();
+          for (var d = 0; d < flat.length; d++) {
+            var day = flat[d];
+            var cell = document.createElement("button");
+            cell.type = "button";
+            cell.className = "gh-cell";
+            var lvl = levelFor(day.contributionCount);
+            cell.style.background = colorForLevel(lvl);
+            cell.setAttribute(
+              "aria-label",
+              day.date +
+                ", " +
+                day.contributionCount +
+                " contribution" +
+                (day.contributionCount === 1 ? "" : "s"),
+            );
+            cell.title =
+              fmtBestDate(day.date) +
+              ": " +
+              day.contributionCount +
+              " contribution" +
+              (day.contributionCount === 1 ? "" : "s");
+            frag.appendChild(cell);
+          }
+          grid.appendChild(frag);
+
+          var stats = computeStats(flat);
+          var totalEl = document.getElementById("gh-total");
+          var curEl = document.getElementById("gh-current");
+          var longEl = document.getElementById("gh-longest");
+          var bestEl = document.getElementById("gh-best");
+          var bestDateEl = document.getElementById("gh-best-date");
+          if (totalEl) totalEl.textContent = fmtNum(stats.total);
+          if (curEl) curEl.textContent = stats.current;
+          if (longEl) longEl.textContent = stats.longest;
+          if (bestEl) bestEl.textContent = fmtNum(stats.bestCount);
+          if (bestDateEl)
+            bestDateEl.textContent = stats.bestDate
+              ? fmtBestDate(stats.bestDate)
+              : "—";
+
+          if (flat.length > 0) {
+            var range = document.getElementById("gh-range");
+            if (range) {
+              range.textContent =
+                fmtMonth(new Date(flat[0].date + "T00:00:00Z")) +
+                " — " +
+                fmtMonth(new Date(flat[flat.length - 1].date + "T00:00:00Z"));
+            }
+          }
+        }
+
+        function init() {
+          paintSkeleton();
+          if (typeof fetch !== "function") {
+            renderError();
+            return;
+          }
+          var ctrl =
+            typeof AbortController === "function"
+              ? new AbortController()
+              : null;
+          var timer = setTimeout(function () {
+            if (ctrl) ctrl.abort();
+          }, TIMEOUT_MS);
+          fetch(ENDPOINT, {
+            headers: { Accept: "application/vnd.github+json" },
+            signal: ctrl ? ctrl.signal : undefined,
+          })
+            .then(function (res) {
+              if (!res.ok) throw new Error("HTTP " + res.status);
+              return res.json();
+            })
+            .then(function (data) {
+              clearTimeout(timer);
+              if (!data || !data.contributionCalendar) {
+                renderError();
+                return;
+              }
+              render(data.contributionCalendar);
+            })
+            .catch(function () {
+              clearTimeout(timer);
+              renderError();
+            });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+
+      // Coding stats (Wakapi integration with fallback)
+      (function () {
+        var WAKAPI_ENDPOINT = "";
+        var WAKAPI_USERNAME = "";
+        var TIMEOUT_MS = 4000;
+
+        var container = document.getElementById("cs-languages");
+        if (!container) return;
+
+        var FALLBACK_DATA = {
+          languages: [
+            { name: "TypeScript", total_seconds: 561600, percent: 32.4 },
+            { name: "JavaScript", total_seconds: 352800, percent: 20.3 },
+            { name: "Python", total_seconds: 241200, percent: 13.9 },
+            { name: "Go", total_seconds: 162000, percent: 9.3 },
+            { name: "Rust", total_seconds: 136800, percent: 7.9 },
+            { name: "HTML/CSS", total_seconds: 104400, percent: 6.0 },
+          ],
+          total_seconds: 1735200,
+          days_tracked: 90,
+        };
+
+        function formatHours(seconds) {
+          var hours = Math.floor(seconds / 3600);
+          return hours + "h";
+        }
+
+        function render(data) {
+          container.innerHTML = "";
+          var languages = data.languages || [];
+          var total = data.total_seconds || 0;
+          var days = data.days_tracked || 0;
+          var maxPercent = languages.length > 0 ? languages[0].percent : 100;
+
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < languages.length; i++) {
+            var lang = languages[i];
+            var row = document.createElement("div");
+            row.className = "cs-row";
+            if (i === languages.length - 1) {
+              row.style.borderBottom = "none";
+            }
+
+            var rank = document.createElement("span");
+            rank.className = "cs-rank";
+            rank.textContent = "#" + (i + 1);
+            row.appendChild(rank);
+
+            var langCol = document.createElement("div");
+            langCol.className = "cs-lang";
+
+            var langName = document.createElement("span");
+            langName.className = "cs-lang-name";
+            langName.textContent = lang.name;
+            langCol.appendChild(langName);
+
+            var bar = document.createElement("div");
+            bar.className = "cs-bar";
+
+            var fill = document.createElement("div");
+            fill.className = "cs-fill";
+            var barWidth = (lang.percent / maxPercent) * 100;
+            fill.style.width = barWidth + "%";
+            bar.appendChild(fill);
+            langCol.appendChild(bar);
+
+            row.appendChild(langCol);
+
+            var time = document.createElement("span");
+            time.className = "cs-time";
+            time.textContent = formatHours(lang.total_seconds);
+            row.appendChild(time);
+
+            var percent = document.createElement("span");
+            percent.className = "cs-percent";
+            percent.textContent = lang.percent.toFixed(1) + "%";
+            row.appendChild(percent);
+
+            frag.appendChild(row);
+          }
+          container.appendChild(frag);
+
+          var totalEl = document.getElementById("cs-total-hours");
+          var daysEl = document.getElementById("cs-days");
+          if (totalEl) totalEl.textContent = formatHours(total);
+          if (daysEl) daysEl.textContent = days;
+        }
+
+        function renderError() {
+          var err = document.getElementById("cs-error");
+          if (err) err.classList.remove("hidden");
+        }
+
+        function init() {
+          if (!WAKAPI_ENDPOINT || !WAKAPI_USERNAME) {
+            render(FALLBACK_DATA);
+            return;
+          }
+
+          if (typeof fetch !== "function") {
+            render(FALLBACK_DATA);
+            return;
+          }
+
+          var ctrl =
+            typeof AbortController === "function"
+              ? new AbortController()
+              : null;
+          var timer = setTimeout(function () {
+            if (ctrl) ctrl.abort();
+          }, TIMEOUT_MS);
+
+          var url = WAKAPI_ENDPOINT;
+          if (url.indexOf("?") === -1) {
+            url += "?username=" + WAKAPI_USERNAME;
+          } else {
+            url += "&username=" + WAKAPI_USERNAME;
+          }
+
+          fetch(url, {
+            headers: { Accept: "application/json" },
+            signal: ctrl ? ctrl.signal : undefined,
+          })
+            .then(function (res) {
+              if (!res.ok) throw new Error("HTTP " + res.status);
+              return res.json();
+            })
+            .then(function (data) {
+              clearTimeout(timer);
+              if (!data || !data.languages || !data.languages.length) {
+                render(FALLBACK_DATA);
+                renderError();
+                return;
+              }
+              var totalSec = 0;
+              var langs = data.languages.slice(0, 6);
+              for (var i = 0; i < langs.length; i++) {
+                totalSec += langs[i].total_seconds;
+              }
+              var transformed = {
+                languages: langs.map(function (l) {
+                  return {
+                    name: l.name,
+                    total_seconds: l.total_seconds,
+                    percent:
+                      totalSec > 0 ? (l.total_seconds / totalSec) * 100 : 0,
+                  };
+                }),
+                total_seconds: totalSec,
+                days_tracked: data.days_tracked || 90,
+              };
+              render(transformed);
+            })
+            .catch(function () {
+              clearTimeout(timer);
+              render(FALLBACK_DATA);
+              renderError();
+            });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+</html>
