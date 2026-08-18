@@ -36,7 +36,7 @@ export default function Skills() {
                   className={`grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 ${isLast ? "" : "mb-10 md:mb-14"} items-start`}
                 >
                   <CategoryCard cat={cat} index={i} />
-                  <CategoryList cat={cat} />
+                  <CategoryList cat={cat} index={i} />
                 </div>
               ) : (
                 <div
@@ -50,7 +50,7 @@ export default function Skills() {
                   </div>
 
                   <div className={`${cat.listCols} order-2 md:order-1`}>
-                    <CategoryList cat={cat} />
+<CategoryList cat={cat} index={i} />
                   </div>
                 </div>
               )}
@@ -69,6 +69,20 @@ const STAR_VARIANTS = [
   { rotate: "15deg", size: "0.75em", mr: "0.45rem" },
 ];
 
+const CARD_CLOUDS = [
+  { cls: "bg-white/[0.06] -top-24 -right-16 w-[380px] h-[380px]" },
+  { cls: "bg-white/[0.04] -top-16 -right-24 w-[460px] h-[420px]" },
+  { cls: "bg-white/[0.08] -top-32 -right-10 w-[300px] h-[300px]" },
+  { cls: "bg-white/[0.03] -top-20 -right-20 w-[520px] h-[460px]" },
+];
+
+const LIST_CLOUDS = [
+  { cls: "bg-white/[0.05] -bottom-20 -left-16 w-[360px] h-[360px]" },
+  { cls: "bg-white/[0.03] -bottom-12 -left-24 w-[440px] h-[400px]" },
+  { cls: "bg-white/[0.07] -bottom-28 -left-8 w-[280px] h-[280px]" },
+  { cls: "bg-white/[0.035] -bottom-16 -left-20 w-[500px] h-[440px]" },
+];
+
 function CategoryCard({
   cat,
   index,
@@ -82,11 +96,16 @@ function CategoryCard({
       ? "cat-card-visual--tall"
       : "";
   const star = STAR_VARIANTS[index % STAR_VARIANTS.length];
+  const cloud = CARD_CLOUDS[index % CARD_CLOUDS.length];
   return (
     <Reveal className={cat.cardCols}>
       <article className="h-full">
         <div className="bezel h-full">
-          <div className="bezel-inner h-full flex flex-col">
+          <div className="bezel-inner h-full flex flex-col relative">
+            <div
+              className={`absolute ${cloud.cls} rounded-full blur-3xl pointer-events-none`}
+              aria-hidden="true"
+            ></div>
             <div className={`cat-card-visual ${visualClass}`}>
               <h3>
                 <StarIcon
@@ -111,11 +130,22 @@ function CategoryCard({
   );
 }
 
-function CategoryList({ cat }: { cat: (typeof skillCategories)[number] }) {
+function CategoryList({
+  cat,
+  index,
+}: {
+  cat: (typeof skillCategories)[number];
+  index: number;
+}) {
+  const cloud = LIST_CLOUDS[index % LIST_CLOUDS.length];
   return (
     <Reveal delay={1} className={cat.listCols}>
       <div className="bezel h-full">
-        <div className="bezel-inner p-6 md:p-7">
+        <div className="bezel-inner p-6 md:p-7 relative">
+          <div
+            className={`absolute ${cloud.cls} rounded-full blur-3xl pointer-events-none`}
+            aria-hidden="true"
+          ></div>
           <div className="flex items-center justify-between mb-2">
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400">
               {cat.name}

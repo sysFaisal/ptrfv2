@@ -17,7 +17,11 @@ export default function ProjectCard({
         className={`project-card bezel${large ? " bezel-lg" : ""} block h-full`}
         aria-label={project.ariaLabel}
       >
-        <div className="bezel-inner h-full flex flex-col">
+        <div className="bezel-inner h-full flex flex-col relative">
+          <div
+            className="absolute -bottom-14 -right-14 w-[280px] h-[280px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none"
+            aria-hidden="true"
+          ></div>
           <div className={`${large ? "aspect-[16/10]" : "aspect-[16/9]"} overflow-hidden relative`}>
             <Image
               src={project.image}

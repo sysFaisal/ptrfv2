@@ -68,7 +68,15 @@ export default function MobileMenu() {
         aria-modal="true"
         aria-label={menu.dialogLabel}
       >
-        <div className="flex flex-col h-full px-6 py-6">
+        <div className="flex flex-col h-full px-6 py-6 relative overflow-hidden">
+          <div
+            className="absolute top-0 -right-24 w-[360px] h-[360px] bg-white/[0.10] rounded-full blur-3xl pointer-events-none"
+            aria-hidden="true"
+          ></div>
+          <div
+            className="absolute -bottom-24 -left-24 w-[460px] h-[460px] bg-white/[0.15] rounded-full blur-3xl pointer-events-none"
+            aria-hidden="true"
+          ></div>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-[clamp(2.75rem,6.8vw,6.25rem)] font-medium leading-[0.96] tracking-[-0.04em]">
               {menu.heading.pre}

@@ -32,7 +32,11 @@ export default function About() {
           <Reveal delay={1} className="md:col-span-5">
             <article className="h-full">
               <div className="bezel h-full">
-                <div className="bezel-inner p-6 md:p-7">
+                <div className="bezel-inner p-6 md:p-7 relative">
+                  <div
+                    className="absolute -bottom-16 -left-20 w-[300px] h-[300px] bg-white/[0.05] rounded-full blur-3xl pointer-events-none"
+                    aria-hidden="true"
+                  ></div>
                   <div className="flex items-center justify-between mb-5">
                     <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400">
                       {about.locations.label}
@@ -67,7 +71,11 @@ export default function About() {
           <Reveal delay={2} className="md:col-span-7">
             <article className="h-full">
               <div className="bezel h-full">
-                <div className="bezel-inner p-6 md:p-7">
+                <div className="bezel-inner p-6 md:p-7 relative">
+                  <div
+                    className="absolute -top-20 -right-16 w-[360px] h-[360px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none"
+                    aria-hidden="true"
+                  ></div>
                   <div className="flex items-center justify-between mb-5">
                     <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-400">
                       {about.education.label}

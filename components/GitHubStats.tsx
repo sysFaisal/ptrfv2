@@ -159,7 +159,11 @@ export default function GitHubStats() {
         <div className="grid grid-cols-1 gap-6 2xl:gap-8">
           <Reveal delay={1}>
             <div className="bezel">
-              <div className="bezel-inner p-5 md:p-7">
+              <div className="bezel-inner p-5 md:p-7 relative">
+                <div
+                  className="absolute -top-20 -left-16 w-[420px] h-[420px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none"
+                  aria-hidden="true"
+                ></div>
                 <div className="flex items-start justify-between mb-5">
                   <div>
                     <p className="text-[10px] uppercase tracking-[0.18em] text-ink-400 font-mono mb-1.5">
@@ -300,7 +304,11 @@ function StatCard({
 }) {
   return (
     <div className="bezel">
-      <div className="bezel-inner p-5">
+      <div className="bezel-inner p-5 relative">
+        <div
+          className="absolute -bottom-12 -right-12 w-[220px] h-[220px] bg-white/[0.05] rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        ></div>
         <p className="text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-3">
           {label}
         </p>
