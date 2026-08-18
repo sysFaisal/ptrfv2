@@ -505,6 +505,13 @@
   color: #f5f5f4;
   font-weight: 500;
 }
+.cs-daily {
+  margin-bottom: 1.5rem;
+  margin-left: 0.125rem;
+}
+.cs-daily-label {
+  color: #a8a29e;
+}
 
 @media (max-width: 640px) {
   .cs-row {

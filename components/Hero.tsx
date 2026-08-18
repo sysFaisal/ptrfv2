@@ -1,7 +1,7 @@
 import ArrowIcon from "./ArrowIcon";
 import Reveal from "./Reveal";
 import { config } from "@/lib/config";
-import Star from "@/assets/star.svg"
+import Star from "@/assets/star.svg";
 
 const { hero } = config;
 export default function Hero() {
@@ -66,16 +66,19 @@ export default function Hero() {
                   </p>
                   <p className="text-sm text-ink-200">
                     {hero.workingFrom.pre}
-                    <span className="text-ink-100">{hero.workingFrom.accent}</span>
+                    <span className="text-ink-100">
+                      {hero.workingFrom.accent}
+                    </span>
                     {hero.workingFrom.post}
                   </p>
                 </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 border border-accent/25">
-                  <span
-                    className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot"
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/25">
+                  {/**<span
+                    className="w-1.5 h-1.5 rounded-full bg-white/80 pulse-dot"
                     aria-hidden="true"
-                  ></span>
-                  <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-accent">
+                  ></span> */}
+
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink-100">
                     {hero.openLabel}
                   </span>
                 </div>
@@ -106,7 +109,9 @@ export default function Hero() {
                     <dd className="stat-num text-2xl font-medium tracking-tight">
                       {stat.value}
                     </dd>
-                    <p className="text-[11px] text-ink-400 mt-1">{stat.label}</p>
+                    <p className="text-[11px] text-ink-400 mt-1">
+                      {stat.label}
+                    </p>
                   </div>
                 ))}
               </dl>

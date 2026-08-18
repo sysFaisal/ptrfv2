@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import Starside from "@/assets/starside.svg";
 import { config } from "@/lib/config";
+import { useActiveSection, sectionIdToNavLabel } from "@/lib/hooks/useActiveSection";
 
 const { menu, nav } = config;
 const menuItems = nav.items;
@@ -13,6 +14,7 @@ export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const activeSection = useActiveSection();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -49,6 +51,11 @@ export default function MobileMenu() {
     closeMenu();
   };
 
+  const getItemColor = (label: string) => {
+    const activeLabel = sectionIdToNavLabel(activeSection);
+    return label === activeLabel ? "#ffffff" : "#a8a29e";
+  };
+
   const sidebarContent = isVisible && (
     <div className="fixed inset-0 z-[9999] md:hidden">
       <div
@@ -74,7 +81,7 @@ export default function MobileMenu() {
             aria-hidden="true"
           ></div>
           <div
-            className="absolute -bottom-24 -left-24 w-[460px] h-[460px] bg-white/[0.15] rounded-full blur-3xl pointer-events-none"
+            className="absolute -bottom-24 -left-24 w-[460px] h-[460px] bg-white/[0.10] rounded-full blur-3xl pointer-events-none"
             aria-hidden="true"
           ></div>
           <div className="flex items-center justify-between mb-6">
@@ -120,7 +127,7 @@ export default function MobileMenu() {
                 src="/me.jpg"
                 alt={menu.imageAlt}
                 fill
-                sizes="(max-width: 768px) 50vw, 280px"
+                sizes="(max-width: 768px) 80px, 280px"
                 className="object-cover"
               />
             </div>
@@ -136,7 +143,7 @@ export default function MobileMenu() {
                   href={item.href}
                   onClick={handleLinkClick}
                   className="block text-lg font-medium pl-0 pr-3 py-1 rounded-xl transition-all duration-300"
-                  style={{ color: "#e7e5e4" }}
+                  style={{ color: getItemColor(item.label) }}
                 >
                   {item.label}
                 </a>

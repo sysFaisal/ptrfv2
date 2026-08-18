@@ -12,6 +12,7 @@ type CodingData = {
   languages: CodingStat[];
   total_seconds: number;
   days_tracked: number;
+  daily_average: number;
 };
 
 const WAKAPI_ENDPOINT: string =
@@ -20,7 +21,9 @@ const WAKAPI_USERNAME: string = "sahaduka";
 const TIMEOUT_MS = 4000;
 
 function formatHours(seconds: number): string {
-  return Math.floor(seconds / 3600) + "h";
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  return `${h}h ${m}m`;
 }
 
 function CodingRow({
@@ -88,7 +91,7 @@ export default function CodingStats() {
       })
       .then((d: { data: CodingData }) => {
         clearTimeout(timer);
-        console.log("Coding stats fetched:", d);
+        //console.log("Coding stats fetched:", d);
         const data = d?.data;
         if (!data || !Array.isArray(data.languages)) {
           renderError();
@@ -97,7 +100,8 @@ export default function CodingStats() {
         render({
           languages: data.languages,
           total_seconds: data.total_seconds,
-          days_tracked: data.days_tracked,
+          days_tracked: data.days_including_holidays,
+          daily_average: data.daily_average,
         } as CodingData);
       })
       .catch(() => {
@@ -150,7 +154,14 @@ export default function CodingStats() {
                   tracked · <span>{data ? data.days_tracked : "—"}</span> days
                 </p>
               </div>
-
+              <p className="cs-total cs-daily">
+                avg{" "}
+                <span className="cs-total-value">
+                  {data ? formatHours(data.daily_average) : "—"}
+                </span>{" "}
+                <span className="cs-daily-label">/ day</span>
+              </p>
+              
               {data ? (
                 data.languages
                   .slice(0, 6)

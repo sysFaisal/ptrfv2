@@ -25,8 +25,8 @@ export const config = {
     items: [
       { href: "#top", label: "Home" },
       { href: "#about", label: "About" },
-      { href: "#work", label: "Project" },
       { href: "#techstack", label: "Techstack" },
+      { href: "#work", label: "Project" },
       { href: "#codingstat", label: "Codingstats" },
     ] as NavItem[],
     cta: "Contact", //Start a project
@@ -50,12 +50,12 @@ export const config = {
       post: "Fullstack Developer", //"that make them legible."
     },
     subline:
-      "Suka ngulik sistem dan merakit aplikasi web modern yang cepat, rapi, dan responsif.", //I am , an independent creative technologist working between distributed systems, expressive UI, and the strange territory where they meet.
+      "I enjoy tinkering with systems and building modern web apps that are fast, clean, and responsive.", //I am , an independent creative technologist working between distributed systems, expressive UI, and the strange territory where they meet.
     ctaPrimary: "Start a project",
     ctaSecondary: "View selected work",
     nowLabel: "Now",
     workingFrom: { pre: "Working from ", accent: "Cimahi", post: ", ID" },
-    openLabel: "Open",
+    openLabel: "Study",
     portrait: {
       src: "/me.jpg", //https://picsum.photos/seed/mira-aoki-portrait-kyoto-2026/640/800
       alt: "Just Profile Picture", //Portrait of Mira Aoki
@@ -72,8 +72,8 @@ export const config = {
   about: {
     heading: { pre: "A short ", accent: "file", post: " , kept current." },
     codeLines: [
-      "Okei, kenalin, saya Faisal. Mahasiswa UNJANI yang saat ini belajar frontend pakai Next.js dan Tailwind CSS. Sisi backend memang belum banyak saya sentuh, kalau lagi gabut, saya malah asyik nyoba di bahasa low-level, gk sampe assembly.",
-      "Saat ini saya ada di level intermediate untuk C dan C++. Berbekal ilmu manajemen memori dan struktur data, saya lagi belajar gimana sistem bisa berjalan efisien—walau praktiknya belum 100% paham betul. Dan entah dari mana datangnya angin, rasa penasaran itu sekarang malah bikin saya tertarik banget buat belajar Golang dan Rust!",
+      "Okay, let me introduce myself, I'm Faisal. A UNJANI student currently learning frontend with Next.js and Tailwind CSS. I haven't touched the backend much; when I'm bored, I actually enjoy experimenting with low-level languages, just not quite assembly.",
+      "I'm currently at an intermediate level in C and C++. Armed with knowledge of memory management and data structures, I'm learning how systems can run efficiently—though in practice I don't fully understand it all yet. And out of nowhere, that curiosity now makes me really interested in learning Golang and Rust!",
     ],
     locations: {
       label: "Locations",
@@ -146,30 +146,29 @@ export const config = {
   coding: {
     heading: { pre: "Where the ", accent: "hours", post: " go." },
     subline: "Time tracked across languages. Real data, no guesses.",
-    breakdown: "Language breakdown",
+    breakdown: "Language ", //breakdown
     error: "E, Using cached data.", //Coding stats unavailable. Using cached data.
   },
 
   contact: {
     heading: { pre: "Tell me what you are ", accent: "building", post: "." },
-    subline:
-      "Briefs under a paragraph are welcome. I usually reply within two days, often with a question or two.",
+    subline: "Briefs are welcome. Replies may take a little while. It depends",
     ctaPrimary: "Start a project", //Start a project
     ctaSecondary: "Read my writing",
     socials: [
       {
         label: "LinkedIn",
-        href: "https://linkedin.com/in/faisal-fajari",
+        href: "#home",
         icon: "linkedin",
       },
       {
         label: "Instagram",
-        href: "https://instagram.com/faisal.fajari",
+        href: "https://instagram.com/f.faisaall",
         icon: "instagram",
       },
       {
         label: "WhatsApp",
-        href: "https://wa.me/6281234567890",
+        href: "https://wa.me/6289506400264",
         icon: "whatsapp",
       },
     ] as { label: string; href: string; icon: string }[],

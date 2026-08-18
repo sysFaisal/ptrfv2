@@ -49,7 +49,7 @@ export default function SkillRow({ skill }: { skill: Skill }) {
       </button>
       <div className="skill-note grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-spring">
         <div className="overflow-hidden">
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-4 pb-5 pl-0 md:pl-9 pr-4">
+          <dl className="grid grid-cols-2 pt-3 gap-x-6 gap-y-4 pb-5 pl-0 md:pl-9 pr-4">
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-1">
                 Experience
