@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import type { Skill } from "@/lib/data";
 
 export default function SkillRow({ skill }: { skill: Skill }) {
@@ -15,11 +16,14 @@ export default function SkillRow({ skill }: { skill: Skill }) {
         onClick={() => setOpen((v) => !v)}
       >
         <div className="flex items-center gap-4 min-w-0">
-          <img
+          <Image
             src={skill.icon}
             alt={`${skill.name} logo`}
-            className="w-5 h-5 shrink-0 opacity-80"
-            loading="lazy"
+            className="shrink-0 opacity-80"
+            width={20}
+            height={20}
+            sizes="20px"
+            unoptimized
           />
           <span className="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate">
             {skill.name}

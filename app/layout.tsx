@@ -16,10 +16,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: config.meta.title,
   description: config.meta.description,
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
     title: config.meta.title,
     description: config.meta.description,
     type: "website",
+    images: [
+      {
+        url: "/me.jpg",
+        width: 512,
+        height: 512,
+        alt: config.site.name,
+      },
+    ],
   },
 };
 

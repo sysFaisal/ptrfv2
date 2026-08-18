@@ -3,6 +3,7 @@ import { config } from "@/lib/config";
 import Reveal from "./Reveal";
 import SkillRow from "./SkillRow";
 import StackLogos from "./StackLogos";
+import StarIcon from "@/assets/star.svg";
 
 export default function Skills() {
   return (
@@ -34,18 +35,18 @@ export default function Skills() {
                 <div
                   className={`grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 ${isLast ? "" : "mb-10 md:mb-14"} items-start`}
                 >
-                  <CategoryCard cat={cat} />
+                  <CategoryCard cat={cat} index={i} />
                   <CategoryList cat={cat} />
                 </div>
               ) : (
                 <div
                   className={`grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 ${
                     isLast ? "" : "mb-10 md:mb-14"
-                  } items-end lg:items-start`}
+                  } items-start`}
                 >
                   {/* Menggunakan order untuk membalik posisi, serta cat.cardCols/listCols */}
                   <div className={`${cat.cardCols} order-1 md:order-2`}>
-                    <CategoryCard cat={cat} />
+                    <CategoryCard cat={cat} index={i} />
                   </div>
 
                   <div className={`${cat.listCols} order-2 md:order-1`}>
@@ -61,20 +62,45 @@ export default function Skills() {
   );
 }
 
-function CategoryCard({ cat }: { cat: (typeof skillCategories)[number] }) {
+const STAR_VARIANTS = [
+  { rotate: "-12deg", size: "0.9em", mr: "0.35rem" },
+  { rotate: "8deg", size: "0.65em", mr: "0.5rem" },
+  { rotate: "-20deg", size: "1.1em", mr: "0.25rem" },
+  { rotate: "15deg", size: "0.75em", mr: "0.45rem" },
+];
+
+function CategoryCard({
+  cat,
+  index,
+}: {
+  cat: (typeof skillCategories)[number];
+  index: number;
+}) {
   const visualClass = cat.short
     ? "cat-card-visual--short"
     : cat.tall
       ? "cat-card-visual--tall"
       : "";
+  const star = STAR_VARIANTS[index % STAR_VARIANTS.length];
   return (
     <Reveal className={cat.cardCols}>
       <article className="h-full">
         <div className="bezel h-full">
           <div className="bezel-inner h-full flex flex-col">
             <div className={`cat-card-visual ${visualClass}`}>
-              <h3>{cat.name}</h3>
+              <h3>
+                <StarIcon
+                  className="inline-block w-auto align-[-0.1em]"
+                  style={{
+                    height: star.size,
+                    transform: `rotate(${star.rotate})`,
+                    marginRight: star.mr,
+                  }}
+                />
+                {cat.name}
+              </h3>
             </div>
+            
             <div className="p-6 md:p-7">
               <StackLogos stack={cat.stack} ariaLabel={cat.stackAria} large />
             </div>

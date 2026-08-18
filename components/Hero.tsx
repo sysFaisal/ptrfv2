@@ -1,6 +1,7 @@
 import ArrowIcon from "./ArrowIcon";
 import Reveal from "./Reveal";
 import { config } from "@/lib/config";
+import Star from "@/assets/star.svg"
 
 const { hero } = config;
 export default function Hero() {
@@ -13,10 +14,10 @@ export default function Hero() {
         <div className="lg:col-span-7">
           <Reveal>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-400 mb-7 inline-flex items-center gap-2.5">
-              <span
-                className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot"
+              <Star
+                className="w-4 h-4 rounded-full text-accent pulse-dot"
                 aria-hidden="true"
-              ></span>
+              ></Star>
               {hero.availability}
             </p>
           </Reveal>

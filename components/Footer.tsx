@@ -36,6 +36,8 @@ export default function Footer() {
             <a
               key={soc.label}
               href={soc.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-ink-100 transition-colors duration-300"
             >
               {soc.label}

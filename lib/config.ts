@@ -129,7 +129,7 @@ export const config = {
     last12Months: "Last 12 months",
     less: "Less",
     more: "More",
-    error: "E. Try ",
+    error: "E. See ",
     errorSuffix: "directly.",
     stats: [
       { key: "total", label: "Contributions in 2026" },
@@ -147,15 +147,32 @@ export const config = {
     heading: { pre: "Where the ", accent: "hours", post: " go." },
     subline: "Time tracked across languages. Real data, no guesses.",
     breakdown: "Language breakdown",
-    error: "Coding stats unavailable. Using cached data.",
+    error: "E, Using cached data.", //Coding stats unavailable. Using cached data.
   },
 
   contact: {
     heading: { pre: "Tell me what you are ", accent: "building", post: "." },
     subline:
       "Briefs under a paragraph are welcome. I usually reply within two days, often with a question or two.",
-    ctaPrimary: "Start a project",
+    ctaPrimary: "Start a project", //Start a project
     ctaSecondary: "Read my writing",
+    socials: [
+      {
+        label: "LinkedIn",
+        href: "https://linkedin.com/in/faisal-fajari",
+        icon: "linkedin",
+      },
+      {
+        label: "Instagram",
+        href: "https://instagram.com/faisal.fajari",
+        icon: "instagram",
+      },
+      {
+        label: "WhatsApp",
+        href: "https://wa.me/6281234567890",
+        icon: "whatsapp",
+      },
+    ] as { label: string; href: string; icon: string }[],
   },
 
   footer: {

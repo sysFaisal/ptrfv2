@@ -8,12 +8,12 @@ import GitHubStats from "@/components/GitHubStats";
 import CodingStats from "@/components/CodingStats";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import GrainOverlay from "@/components/GrainOverlay";
+// import GrainOverlay from "@/components/GrainOverlay";
 
 export default function Home() {
   return (
     <>
-      <GrainOverlay />
+      {/*<GrainOverlay /> */}
       <Nav />
       <main id="main">
         <Hero />

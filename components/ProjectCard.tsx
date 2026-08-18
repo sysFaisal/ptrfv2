@@ -1,7 +1,7 @@
 import type { Project } from "@/lib/data";
 import ArrowIcon from "./ArrowIcon";
 import StackLogos from "./StackLogos";
-
+import Image from "next/image";
 export default function ProjectCard({
   project,
   hidden,
@@ -18,12 +18,13 @@ export default function ProjectCard({
         aria-label={project.ariaLabel}
       >
         <div className="bezel-inner h-full flex flex-col">
-          <div className={`aspect-[16/${large ? "10" : "9"}] overflow-hidden relative`}>
-            <img
+          <div className={`${large ? "aspect-[16/10]" : "aspect-[16/9]"} overflow-hidden relative`}>
+            <Image
               src={project.image}
               alt={project.alt}
-              className="project-image w-full h-full object-cover"
-              loading="lazy"
+              className="project-image object-cover"
+              fill
+              sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
             />
             {large && (
               <div className="absolute inset-0 bg-gradient-to-t from-bg/40 via-transparent to-transparent"></div>

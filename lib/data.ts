@@ -70,7 +70,7 @@ export const skillCategories: SkillCategory[] = [
     stackAria: "Backend stack: Supabase, Axum",
     stack: [
       { src: "https://cdn.simpleicons.org/supabase/ffffff", label: "Supabase" },
-      { label: "Axum" },
+      { src: "https://cdn.simpleicons.org/rust/ffffff", label: "Rust" },
     ],
     skills: [
       {

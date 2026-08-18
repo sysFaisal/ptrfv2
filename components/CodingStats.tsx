@@ -134,9 +134,9 @@ export default function CodingStats() {
 
         <Reveal delay={1}>
           <div className="bezel">
-            <div className="bezel-inner p-5 pb-12 md:p-7 md:pb-12">
+            <div className="bezel-inner p-5 pb-5 md:p-7 md:pb-7">
               <div className="cs-header">
-                <p className="text-[10px] uppercase tracking-[0.18em] text-ink-400 font-mono mb-0">
+                <p className="text-[10px] uppercase tracking-[0.18em] text-ink-400 font-mono mb-0 truncate">
                   {coding.breakdown}
                 </p>
                 <p className="cs-total">
