@@ -140,7 +140,7 @@ export default function CodingStats() {
           <div className="bezel">
             <div className="bezel-inner p-5 pb-5 md:p-7 md:pb-7 relative">
               <div
-                className="absolute -top-24 -right-16 w-[420px] h-[420px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none"
+                className="cloud cloud-1 -top-24 -right-16 w-[420px] h-[420px]"
                 aria-hidden="true"
               ></div>
               <div className="cs-header">

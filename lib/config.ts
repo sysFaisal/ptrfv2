@@ -105,13 +105,13 @@ export const config = {
   skills: {
     heading: { pre: "A ", accent: "working", post: " toolkit." },
     subline:
-      "Sixteen tools across four areas. The card gives the shape; the list gives the stack.",
+      "Nine tools across four areas. The card gives the shape; the list gives the stack.",
   },
 
   work: {
     heading: { pre: "Projects, picked by ", accent: "ofc me", post: "." }, //craft
     subline:
-      "Seven things from the last 24 months. Filter by surface, shipped, still in production somewhere.",
+      "A collection of things I worked on recently. Filter by status (mostly works on my machine)", //Seven things from the last 24 months. Filter by surface, shipped, still in production somewhere.
     tabs: [
       { id: "all", label: "All" },
       { id: "frontend", label: "Frontend" },

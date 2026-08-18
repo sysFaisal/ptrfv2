@@ -72,7 +72,13 @@ export default function Hero() {
                     {hero.workingFrom.post}
                   </p>
                 </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/25">
+                <div
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+                  style={{
+                    backgroundColor: "var(--pill-bg)",
+                    border: "1px solid var(--pill-border)",
+                  }}
+                >
                   {/**<span
                     className="w-1.5 h-1.5 rounded-full bg-white/80 pulse-dot"
                     aria-hidden="true"
@@ -91,7 +97,7 @@ export default function Hero() {
                   className="w-full h-full object-cover"
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--grad-tint-from)] via-transparent to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4">
                   <p className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-ink-300 mb-0.5">
                     {hero.nameCard}

@@ -70,17 +70,17 @@ const STAR_VARIANTS = [
 ];
 
 const CARD_CLOUDS = [
-  { cls: "bg-white/[0.06] -top-24 -right-16 w-[380px] h-[380px]" },
-  { cls: "bg-white/[0.04] -top-16 -right-24 w-[460px] h-[420px]" },
-  { cls: "bg-white/[0.08] -top-32 -right-10 w-[300px] h-[300px]" },
-  { cls: "bg-white/[0.03] -top-20 -right-20 w-[520px] h-[460px]" },
+  { cls: "cloud cloud-3 -top-24 -right-16 w-[380px] h-[380px]" },
+  { cls: "cloud cloud-1 -top-16 -right-24 w-[460px] h-[420px]" },
+  { cls: "cloud cloud-5 -top-32 -right-10 w-[300px] h-[300px]" },
+  { cls: "cloud cloud-4 -top-20 -right-20 w-[520px] h-[460px]" },
 ];
 
 const LIST_CLOUDS = [
-  { cls: "bg-white/[0.05] -bottom-20 -left-16 w-[360px] h-[360px]" },
-  { cls: "bg-white/[0.03] -bottom-12 -left-24 w-[440px] h-[400px]" },
-  { cls: "bg-white/[0.07] -bottom-28 -left-8 w-[280px] h-[280px]" },
-  { cls: "bg-white/[0.035] -bottom-16 -left-20 w-[500px] h-[440px]" },
+  { cls: "cloud cloud-2 -bottom-20 -left-16 w-[360px] h-[360px]" },
+  { cls: "cloud cloud-4 -bottom-12 -left-24 w-[440px] h-[400px]" },
+  { cls: "cloud cloud-6 -bottom-28 -left-8 w-[280px] h-[280px]" },
+  { cls: "cloud cloud-7 -bottom-16 -left-20 w-[500px] h-[440px]" },
 ];
 
 function CategoryCard({
@@ -103,7 +103,7 @@ function CategoryCard({
         <div className="bezel h-full">
           <div className="bezel-inner h-full flex flex-col relative">
             <div
-              className={`absolute ${cloud.cls} rounded-full blur-3xl pointer-events-none`}
+              className={`${cloud.cls}`}
               aria-hidden="true"
             ></div>
             <div className={`cat-card-visual ${visualClass}`}>
@@ -143,7 +143,7 @@ function CategoryList({
       <div className="bezel h-full">
         <div className="bezel-inner p-6 md:p-7 relative">
           <div
-            className={`absolute ${cloud.cls} rounded-full blur-3xl pointer-events-none`}
+            className={`${cloud.cls}`}
             aria-hidden="true"
           ></div>
           <div className="flex items-center justify-between mb-2">
@@ -154,7 +154,7 @@ function CategoryList({
               {String(cat.count).padStart(2, "0")}
             </span>
           </div>
-          <ul className="divide-y divide-[#969696]/35">
+          <ul className="divide-y divide-[var(--hairline-soft)]">
             {cat.skills.map((skill) => (
               <li key={skill.name}>
                 <SkillRow skill={skill} />

@@ -1,4 +1,5 @@
 import type { StackLogo } from "@/lib/data";
+import BrandIcon from "./BrandIcon";
 
 export default function StackLogos({
   stack,
@@ -16,25 +17,13 @@ export default function StackLogos({
       className={`stack-logos${large ? " stack-logos-lg" : ""} ${className}`}
       aria-label={ariaLabel}
     >
-      {stack.map((logo, i) =>
-        logo.src ? (
-          <img
-            key={i}
-            src={logo.src}
-            alt={logo.label}
-            className="stack-logo"
-            loading="lazy"
-          />
-        ) : (
-          <span
-            key={i}
-            className="stack-logo inline-flex items-center justify-center rounded-full border hairline text-[9px] font-mono text-ink-300"
-            aria-label={logo.label}
-          >
-            {logo.label?.slice(0, 2)}
-          </span>
-        ),
-      )}
+      {stack.map((logo, i) => (
+        <BrandIcon
+          key={i}
+          className="stack-logo text-ink-300"
+          label={logo.label}
+        />
+      ))}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import type { Skill } from "@/lib/data";
+import BrandIcon from "./BrandIcon";
 
 export default function SkillRow({ skill }: { skill: Skill }) {
   const [open, setOpen] = useState(false);
@@ -16,14 +16,9 @@ export default function SkillRow({ skill }: { skill: Skill }) {
         onClick={() => setOpen((v) => !v)}
       >
         <div className="flex items-center gap-4 min-w-0">
-          <Image
-            src={skill.icon}
-            alt={`${skill.name} logo`}
-            className="shrink-0 opacity-80"
-            width={20}
-            height={20}
-            sizes="20px"
-            unoptimized
+          <BrandIcon
+            className="skill-icon-text shrink-0 text-ink-300"
+            label={skill.name}
           />
           <span className="text-base md:text-lg text-ink-100 font-medium tracking-tight truncate">
             {skill.name}

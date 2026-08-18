@@ -10,7 +10,7 @@ const ENDPOINT = `https://github-contributions-api.jogruber.de/v4/${gh.username}
 const TIMEOUT_MS = 8000;
 const SKELETON_COUNT = 371;
 const LEVELS = [
-  "rgba(255,255,255,0.04)",
+  "var(--shimmer-1)",
   "rgba(57,211,83,0.18)",
   "rgba(57,211,83,0.40)",
   "rgba(57,211,83,0.70)",
@@ -161,7 +161,7 @@ export default function GitHubStats() {
             <div className="bezel">
               <div className="bezel-inner p-5 md:p-7 relative">
                 <div
-                  className="absolute -top-20 -left-16 w-[420px] h-[420px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none"
+                  className="cloud cloud-1 -top-20 -left-16 w-[420px] h-[420px]"
                   aria-hidden="true"
                 ></div>
                 <div className="flex items-start justify-between mb-5">
@@ -306,7 +306,7 @@ function StatCard({
     <div className="bezel">
       <div className="bezel-inner p-5 relative">
         <div
-          className="absolute -bottom-12 -right-12 w-[220px] h-[220px] bg-white/[0.05] rounded-full blur-3xl pointer-events-none"
+          className="cloud cloud-2 -bottom-12 -right-12 w-[220px] h-[220px]"
           aria-hidden="true"
         ></div>
         <p className="text-[10px] uppercase tracking-[0.18em] text-ink-400 mb-3">

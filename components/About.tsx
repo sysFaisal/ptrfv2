@@ -34,7 +34,7 @@ export default function About() {
               <div className="bezel h-full">
                 <div className="bezel-inner p-6 md:p-7 relative">
                   <div
-                    className="absolute -bottom-16 -left-20 w-[300px] h-[300px] bg-white/[0.05] rounded-full blur-3xl pointer-events-none"
+                    className="cloud cloud-2 -bottom-16 -left-20 w-[300px] h-[300px]"
                     aria-hidden="true"
                   ></div>
                   <div className="flex items-center justify-between mb-5">
@@ -73,7 +73,7 @@ export default function About() {
               <div className="bezel h-full">
                 <div className="bezel-inner p-6 md:p-7 relative">
                   <div
-                    className="absolute -top-20 -right-16 w-[360px] h-[360px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none"
+                    className="cloud cloud-1 -top-20 -right-16 w-[360px] h-[360px]"
                     aria-hidden="true"
                   ></div>
                   <div className="flex items-center justify-between mb-5">

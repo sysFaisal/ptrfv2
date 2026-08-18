@@ -50,8 +50,9 @@ export default function Contact() {
         <div className="bezel bezel-lg">
           <div className="bezel-inner px-8 py-16 md:px-20 md:py-24 lg:py-28 text-center relative overflow-hidden">
             <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/8 rounded-full blur-3xl pointer-events-none"
+              className="cloud cloud-8 top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px]"
               aria-hidden="true"
+              style={{ background: "var(--contact-cloud)" }}
             ></div>
 
             <div className="absolute -bottom-10 -right-10 pointer-events-none select-none">

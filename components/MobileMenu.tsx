@@ -53,7 +53,9 @@ export default function MobileMenu() {
 
   const getItemColor = (label: string) => {
     const activeLabel = sectionIdToNavLabel(activeSection);
-    return label === activeLabel ? "#ffffff" : "#a8a29e";
+    return label === activeLabel
+      ? "var(--color-ink-50)"
+      : "var(--color-ink-400)";
   };
 
   const sidebarContent = isVisible && (
@@ -63,25 +65,25 @@ export default function MobileMenu() {
           isOpen ? "opacity-100" : "opacity-0"
         }`}
         onClick={closeMenu}
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.85)" }}
+        style={{ backgroundColor: "var(--menu-overlay)" }}
       />
       <aside
         id="mobile-menu-sidebar"
         className={`absolute top-0 left-0 bottom-0 h-full w-[280px] overflow-y-auto transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
-        style={{ backgroundColor: "#000000", margin: 0, padding: 0 }}
+        style={{ backgroundColor: "var(--menu-sidebar)", margin: 0, padding: 0 }}
         role="dialog"
         aria-modal="true"
         aria-label={menu.dialogLabel}
       >
         <div className="flex flex-col h-full px-6 py-6 relative overflow-hidden">
           <div
-            className="absolute top-0 -right-24 w-[360px] h-[360px] bg-white/[0.10] rounded-full blur-3xl pointer-events-none"
+            className="cloud cloud-7 top-0 -right-24 w-[360px] h-[360px]"
             aria-hidden="true"
           ></div>
           <div
-            className="absolute -bottom-24 -left-24 w-[460px] h-[460px] bg-white/[0.10] rounded-full blur-3xl pointer-events-none"
+            className="cloud cloud-7 -bottom-24 -left-24 w-[460px] h-[460px]"
             aria-hidden="true"
           ></div>
           <div className="flex items-center justify-between mb-6">
@@ -98,8 +100,8 @@ export default function MobileMenu() {
               onClick={closeMenu}
               className="w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               style={{
-                backgroundColor: "rgba(255, 255, 255, 0.06)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
+                backgroundColor: "var(--pill-bg)",
+                border: "1px solid var(--pill-border)",
               }}
               aria-label={menu.closeLabel}
             >
@@ -108,7 +110,7 @@ export default function MobileMenu() {
                 height="12"
                 viewBox="0 0 12 12"
                 fill="none"
-                stroke="#f5f5f4"
+                stroke="var(--color-ink-100)"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -120,8 +122,8 @@ export default function MobileMenu() {
 
           <div className="flex items-center gap-2 mb-8 mt-5">
             <div
-              className="w-[50%] h-auto aspect-square rounded-xl overflow-hidden relative border border-white/10"
-              style={{ backgroundColor: "#1f1f1f" }}
+              className="w-[50%] h-auto aspect-square rounded-xl overflow-hidden relative hairline"
+              style={{ backgroundColor: "var(--color-surface)" }}
             >
               <Image
                 src="/me.jpg"
@@ -153,15 +155,15 @@ export default function MobileMenu() {
 
           <div
             className="mt-auto pt-6"
-            style={{ borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}
+            style={{ borderTop: "1px solid var(--hairline-soft)" }}
           >
             <a
               href="#contact"
               onClick={handleLinkClick}
               className="inline-flex items-center w-full justify-center font-medium text-sm rounded-full"
               style={{
-                backgroundColor: "#f5f5f4",
-                color: "#0a0a0a",
+                backgroundColor: "var(--btn-primary-bg)",
+                color: "var(--btn-primary-fg)",
                 padding: "8px 20px",
               }}
             >
@@ -176,8 +178,8 @@ export default function MobileMenu() {
   return (
     <>
       <button
-        className="md:hidden flex flex-col justify-center items-center w-7 h-7 rounded-full border border-white/[0.08] gap-[3px] transition-all duration-300 hover:border-white/[0.12] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        style={{ backgroundColor: "#111111" }}
+        className="md:hidden flex flex-col justify-center items-center w-7 h-7 rounded-full border hairline gap-[3px] transition-all duration-300 hover:border-[var(--bezel-border-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        style={{ backgroundColor: "var(--color-surface)" }}
         onClick={() => (isOpen ? closeMenu() : openMenu())}
         aria-expanded={isOpen}
         aria-label={isOpen ? menu.closeLabel : menu.openLabel}
@@ -186,19 +188,19 @@ export default function MobileMenu() {
           className={`w-3 h-[1.5px] rounded-full transition-transform duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] origin-center ${
             isOpen ? "rotate-45 translate-y-[4.5px]" : ""
           }`}
-          style={{ backgroundColor: "#f5f5f4" }}
+          style={{ backgroundColor: "var(--color-ink-100)" }}
         />
         <span
           className={`w-3 h-[1.5px] rounded-full transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] ${
             isOpen ? "opacity-0" : "opacity-100"
           }`}
-          style={{ backgroundColor: "#f5f5f4" }}
+          style={{ backgroundColor: "var(--color-ink-100)" }}
         />
         <span
           className={`w-3 h-[1.5px] rounded-full transition-transform duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] origin-center ${
             isOpen ? "-rotate-45 -translate-y-[4.5px]" : ""
           }`}
-          style={{ backgroundColor: "#f5f5f4" }}
+          style={{ backgroundColor: "var(--color-ink-100)" }}
         />
       </button>
 

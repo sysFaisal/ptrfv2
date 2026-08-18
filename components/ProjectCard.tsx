@@ -19,7 +19,7 @@ export default function ProjectCard({
       >
         <div className="bezel-inner h-full flex flex-col relative">
           <div
-            className="absolute -bottom-14 -right-14 w-[280px] h-[280px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none"
+            className="cloud cloud-1 -bottom-14 -right-14 w-[280px] h-[280px]"
             aria-hidden="true"
           ></div>
           <div className={`${large ? "aspect-[16/10]" : "aspect-[16/9]"} overflow-hidden relative`}>
@@ -31,7 +31,7 @@ export default function ProjectCard({
               sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
             />
             {large && (
-              <div className="absolute inset-0 bg-gradient-to-t from-bg/40 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--grad-tint-soft)] via-transparent to-transparent"></div>
             )}
           </div>
           <div
@@ -42,7 +42,8 @@ export default function ProjectCard({
                 {project.meta}
               </span>
               <span
-                className={`project-arrow ${large ? "w-8 h-8" : "w-7 h-7"} rounded-full bg-ink-50/5 text-ink-100 flex items-center justify-center`}
+                className={`project-arrow ${large ? "w-8 h-8" : "w-7 h-7"} rounded-full text-ink-100 flex items-center justify-center`}
+                style={{ backgroundColor: "var(--bezel-bg)" }}
               >
                 <ArrowIcon size={large ? 13 : 12} />
               </span>

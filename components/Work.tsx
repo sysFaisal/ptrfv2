@@ -92,8 +92,13 @@ export default function Work() {
                   className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-[400ms] ease-spring ${
                     isActive
                       ? "bg-accent text-bg"
-                      : "border hairline bg-ink-50/5 text-ink-200 hover:bg-ink-50/10 hover:text-ink-100"
+                      : "border hairline text-ink-200 hover:text-ink-100"
                   }`}
+                  style={
+                    isActive
+                      ? undefined
+                      : { backgroundColor: "var(--bezel-bg)" }
+                  }
                 >
                   {tab.label}
                   <span className="font-mono text-[10px] ml-1.5 opacity-70">
