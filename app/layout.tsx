@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sakuspace.my.id"),
   title: config.meta.title,
   description: config.meta.description,
   icons: {
@@ -28,8 +29,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/me.jpg",
-        width: 512,
-        height: 512,
+        width: 40,
+        height: 40,
         alt: config.site.name,
       },
     ],

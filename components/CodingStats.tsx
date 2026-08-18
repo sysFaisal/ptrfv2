@@ -12,6 +12,7 @@ type CodingData = {
   languages: CodingStat[];
   total_seconds: number;
   days_tracked: number;
+  days_including_holidays?: number;
   daily_average: number;
 };
 
