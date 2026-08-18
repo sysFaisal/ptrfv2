@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { fallbackCodingStats } from "@/lib/data";
 import { config } from "@/lib/config";
-import Reveal from "./Reveal";
+import Reveal from "@/components/Reveal";
 
 const { coding } = config;
 

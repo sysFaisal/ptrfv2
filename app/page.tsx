@@ -1,13 +1,13 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Work from "@/components/Work";
-import GitHubStats from "@/components/GitHubStats";
-import CodingStats from "@/components/CodingStats";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import Nav from "@/components/home/Nav";
+import Hero from "@/components/home/Hero";
+import Marquee from "@/components/home/Marquee";
+import About from "@/components/home/About";
+import Skills from "@/components/home/Skills";
+import Work from "@/components/home/Work";
+import GitHubStats from "@/components/home/GitHubStats";
+import CodingStats from "@/components/home/CodingStats";
+import Contact from "@/components/home/Contact";
+import Footer from "@/components/home/Footer";
 // import GrainOverlay from "@/components/GrainOverlay";
 
 export default function Home() {

@@ -1,5 +1,5 @@
-import ArrowIcon from "./ArrowIcon";
-import Reveal from "./Reveal";
+import ArrowIcon from "@/components/ArrowIcon";
+import Reveal from "@/components/Reveal";
 import { config } from "@/lib/config";
 import Star from "@/assets/star.svg";
 

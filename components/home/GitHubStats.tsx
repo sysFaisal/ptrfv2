@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Reveal from "./Reveal";
+import Reveal from "@/components/Reveal";
 import { config } from "@/lib/config";
 
 const { gh } = config;

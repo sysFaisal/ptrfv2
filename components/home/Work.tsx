@@ -3,9 +3,9 @@
 import { useMemo, useRef, useState } from "react";
 import { projects, type Project } from "@/lib/data";
 import { config } from "@/lib/config";
-import ProjectCard from "./ProjectCard";
-import Reveal from "./Reveal";
+import ProjectCard from "@/components/ProjectCard";
 
+import Reveal from "@/components/Reveal";
 type Tab = "all" | Project["cat"];
 
 const tabs = config.work.tabs;

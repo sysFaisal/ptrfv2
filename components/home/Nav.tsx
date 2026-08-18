@@ -1,7 +1,7 @@
 import Image from "next/image";
-import ArrowIcon from "./ArrowIcon";
-import MobileMenu from "./MobileMenu";
-import ThemeToggle from "./ThemeToggle";
+import ArrowIcon from "@/components/ArrowIcon";
+import MobileMenu from "@/components/MobileMenu";
+import ThemeToggle from "@/components/ThemeToggle";
 import { config } from "@/lib/config";
 
 const { nav, site } = config;

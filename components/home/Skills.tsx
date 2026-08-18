@@ -1,8 +1,8 @@
 import { skillCategories } from "@/lib/data";
 import { config } from "@/lib/config";
-import Reveal from "./Reveal";
-import SkillRow from "./SkillRow";
-import StackLogos from "./StackLogos";
+import Reveal from "@/components/Reveal";
+import SkillRow from "@/components/SkillRow";
+import StackLogos from "@/components/StackLogos";
 import StarIcon from "@/assets/star.svg";
 
 export default function Skills() {

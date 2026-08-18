@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Reveal from "./Reveal";
+import Reveal from "@/components/Reveal";
 import { config } from "@/lib/config";
 
 const { about } = config;
