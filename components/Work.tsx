@@ -18,8 +18,14 @@ export default function Work() {
     const all = projects.length;
     const frontend = projects.filter((p) => p.cat === "frontend").length;
     const backend = projects.filter((p) => p.cat === "backend").length;
-    return { all, frontend, backend };
+    const fullstack = projects.filter((p) => p.cat === "fullstack").length;
+    return { all, frontend, backend, fullstack };
   }, []);
+
+  const visibleTabs = useMemo(
+    () => tabs.filter((tab) => tab.id === "all" || counts[tab.id] > 0),
+    [counts]
+  );
 
   function activate(tab: Tab) {
     setActive(tab);
@@ -29,10 +35,10 @@ export default function Work() {
     const keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
     if (!keys.includes(e.key)) return;
     let idx = index;
-    if (e.key === "ArrowRight") idx = (idx + 1) % tabs.length;
-    if (e.key === "ArrowLeft") idx = (idx - 1 + tabs.length) % tabs.length;
+    if (e.key === "ArrowRight") idx = (idx + 1) % visibleTabs.length;
+    if (e.key === "ArrowLeft") idx = (idx - 1 + visibleTabs.length) % visibleTabs.length;
     if (e.key === "Home") idx = 0;
-    if (e.key === "End") idx = tabs.length - 1;
+    if (e.key === "End") idx = visibleTabs.length - 1;
     const target = tabRefs.current[idx];
     if (target) {
       target.focus();
@@ -69,7 +75,7 @@ export default function Work() {
             aria-label={config.work.filterAria}
             className="flex flex-wrap items-center gap-2"
           >
-            {tabs.map((tab, i) => {
+            {visibleTabs.map((tab, i) => {
               const isActive = active === tab.id;
               return (
                 <button

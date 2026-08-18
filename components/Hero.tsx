@@ -28,7 +28,9 @@ export default function Hero() {
                 className="text-accent italic font-medium"
                 style={{ fontFeatureSettings: '"ss01"' }}
               >
+                <br></br>
                 {hero.headline.accent}
+                <br></br>
               </span>
               {hero.headline.post}
             </h1>

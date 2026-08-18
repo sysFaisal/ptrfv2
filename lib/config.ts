@@ -1,6 +1,6 @@
 export type NavItem = { href: string; label: string };
 
-export type WorkTabId = "all" | "frontend" | "backend";
+export type WorkTabId = "all" | "frontend" | "backend" | "fullstack";
 
 export type Heading = { pre: string; accent: string; post: string };
 
@@ -29,7 +29,7 @@ export const config = {
       { href: "#techstack", label: "Techstack" },
       { href: "#codingstat", label: "Codingstats" },
     ] as NavItem[],
-    cta: "Start a project",
+    cta: "Contact", //Start a project
     ctaShort: "Contact",
   },
 
@@ -45,12 +45,12 @@ export const config = {
   hero: {
     availability: "Studying", //Available for select work, Q1 2026
     headline: {
-      pre: "Building resilient systems and the",
-      accent: "interfaces",
-      post: "that make them legible.",
+      pre: "Hello, I am", //"Building resilient systems and the"
+      accent: "Faisal Fajari", //"interfaces"
+      post: "Fullstack Developer", //"that make them legible."
     },
     subline:
-      "I am Faisal Fajari, an independent creative technologist working between distributed systems, expressive UI, and the strange territory where they meet.",
+      "Suka ngulik sistem dan merakit aplikasi web modern yang cepat, rapi, dan responsif.", //I am , an independent creative technologist working between distributed systems, expressive UI, and the strange territory where they meet.
     ctaPrimary: "Start a project",
     ctaSecondary: "View selected work",
     nowLabel: "Now",
@@ -72,14 +72,13 @@ export const config = {
   about: {
     heading: { pre: "A short ", accent: "file", post: " , kept current." },
     codeLines: [
-      "// based in USA. working remote-first across PT, ET, and everywhere in between.",
-      "// eleven years of shipping distributed systems, expressive interfaces, and the glue between them. small teams, long horizons, code i would still respect in five years.",
-      "// currently open to select work, q1 2026. briefs welcome.",
+      "Okei, kenalin, saya Faisal. Mahasiswa UNJANI yang saat ini belajar frontend pakai Next.js dan Tailwind CSS. Sisi backend memang belum banyak saya sentuh, kalau lagi gabut, saya malah asyik nyoba di bahasa low-level, gk sampe assembly.",
+      "Saat ini saya ada di level intermediate untuk C dan C++. Berbekal ilmu manajemen memori dan struktur data, saya lagi belajar gimana sistem bisa berjalan efisien—walau praktiknya belum 100% paham betul. Dan entah dari mana datangnya angin, rasa penasaran itu sekarang malah bikin saya tertarik banget buat belajar Golang dan Rust!",
     ],
     locations: {
       label: "Locations",
       badge: "INA",
-      items: [{ index: "01", name: "Cimahi, Java East", timezone: "WIB" }],
+      items: [{ index: "01", name: "Cimahi, West Java", timezone: "WIB" }],
     },
     education: {
       label: "Education",
@@ -97,8 +96,6 @@ export const config = {
     items: [
       "Distributed systems",
       "Real-time interfaces",
-      "TypeScript & Rust",
-      "Creative tooling",
       "Edge compute",
       "Design systems",
       "Developer experience",
@@ -119,6 +116,7 @@ export const config = {
       { id: "all", label: "All" },
       { id: "frontend", label: "Frontend" },
       { id: "backend", label: "Backend" },
+      { id: "fullstack", label: "Fullstack" },
     ] as { id: WorkTabId; label: string }[],
     filterAria: "Filter projects by category",
   },

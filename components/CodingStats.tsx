@@ -8,10 +8,15 @@ import Reveal from "./Reveal";
 const { coding } = config;
 
 type CodingStat = { name: string; total_seconds: number; percent: number };
-type CodingData = { languages: CodingStat[]; total_seconds: number; days_tracked: number };
+type CodingData = {
+  languages: CodingStat[];
+  total_seconds: number;
+  days_tracked: number;
+};
 
-const WAKAPI_ENDPOINT: string = "";
-const WAKAPI_USERNAME: string = "";
+const WAKAPI_ENDPOINT: string =
+  "https://wakapi.sakuspace.my.id/api/compat/wakatime/v1/users/sahaduka/stats/";
+const WAKAPI_USERNAME: string = "sahaduka";
 const TIMEOUT_MS = 4000;
 
 function formatHours(seconds: number): string {
@@ -64,7 +69,8 @@ export default function CodingStats() {
       return;
     }
 
-    const ctrl = typeof AbortController === "function" ? new AbortController() : null;
+    const ctrl =
+      typeof AbortController === "function" ? new AbortController() : null;
     const timer = setTimeout(() => ctrl?.abort(), TIMEOUT_MS);
 
     const url =
@@ -72,18 +78,27 @@ export default function CodingStats() {
         ? `${WAKAPI_ENDPOINT}?username=${WAKAPI_USERNAME}`
         : `${WAKAPI_ENDPOINT}&username=${WAKAPI_USERNAME}`;
 
-    fetch(url, { headers: { Accept: "application/json" }, signal: ctrl ? ctrl.signal : undefined })
+    fetch(url, {
+      headers: { Accept: "application/json" },
+      signal: ctrl ? ctrl.signal : undefined,
+    })
       .then((res) => {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
       })
-      .then((d: CodingData) => {
+      .then((d: { data: CodingData }) => {
         clearTimeout(timer);
-        if (!d || !Array.isArray(d.languages)) {
+        console.log("Coding stats fetched:", d);
+        const data = d?.data;
+        if (!data || !Array.isArray(data.languages)) {
           renderError();
           return;
         }
-        render(d);
+        render({
+          languages: data.languages,
+          total_seconds: data.total_seconds,
+          days_tracked: data.days_tracked,
+        } as CodingData);
       })
       .catch(() => {
         clearTimeout(timer);
@@ -107,7 +122,9 @@ export default function CodingStats() {
         <Reveal className="mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-[-0.03em] leading-[1.05] mb-4 max-w-2xl text-balance">
             {coding.heading.pre}
-            <span className="text-accent italic font-medium">{coding.heading.accent}</span>
+            <span className="text-accent italic font-medium">
+              {coding.heading.accent}
+            </span>
             {coding.heading.post}
           </h2>
           <p className="text-ink-300 leading-[1.6] max-w-xl">
@@ -131,27 +148,38 @@ export default function CodingStats() {
               </div>
 
               {data ? (
-                data.languages.map((lang, i) => (
-                  <CodingRow
-                    key={lang.name}
-                    lang={lang}
-                    maxPercent={maxPercent}
-                    rank={i + 1}
-                  />
-                ))
+                data.languages
+                  .slice(0, 6)
+                  .map((lang, i) => (
+                    <CodingRow
+                      key={lang.name}
+                      lang={lang}
+                      maxPercent={maxPercent}
+                      rank={i + 1}
+                    />
+                  ))
               ) : (
                 <>
                   {[70, 50, 35, 25, 18, 12].map((w) => (
                     <div className="cs-row" key={w}>
                       <span className="cs-rank cs-skel">&nbsp;</span>
                       <div className="cs-lang">
-                        <span className="cs-lang-name cs-skel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span className="cs-lang-name cs-skel">
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
                         <div className="cs-bar">
-                          <div className="cs-fill cs-skel" style={{ width: `${w}%` }} />
+                          <div
+                            className="cs-fill cs-skel"
+                            style={{ width: `${w}%` }}
+                          />
                         </div>
                       </div>
-                      <span className="cs-time cs-skel">&nbsp;&nbsp;&nbsp;</span>
-                      <span className="cs-percent cs-skel">&nbsp;&nbsp;&nbsp;</span>
+                      <span className="cs-time cs-skel">
+                        &nbsp;&nbsp;&nbsp;
+                      </span>
+                      <span className="cs-percent cs-skel">
+                        &nbsp;&nbsp;&nbsp;
+                      </span>
                     </div>
                   ))}
                 </>

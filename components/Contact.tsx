@@ -6,7 +6,10 @@ const { contact } = config;
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 md:px-10 py-24 md:py-36 border-t hairline">
+    <section
+      id="contact"
+      className="px-6 md:px-10 py-24 md:py-36 border-t hairline"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="bezel bezel-lg">
           <div className="bezel-inner px-8 py-16 md:px-20 md:py-24 lg:py-28 text-center relative overflow-hidden">
@@ -19,7 +22,9 @@ export default function Contact() {
               <Reveal>
                 <h2 className="text-balance text-5xl md:text-7xl lg:text-[5.5rem] font-medium tracking-[-0.04em] leading-[0.95] mb-7 max-w-3xl mx-auto">
                   {contact.heading.pre}{" "}
-                  <span className="text-accent italic font-medium">{contact.heading.accent}</span>
+                  <span className="text-accent italic font-medium">
+                    {contact.heading.accent}
+                  </span>
                   {contact.heading.post}
                 </h2>
               </Reveal>
@@ -28,8 +33,14 @@ export default function Contact() {
                   {contact.subline}
                 </p>
               </Reveal>
-              <Reveal delay={2} className="flex flex-wrap items-center justify-center gap-3">
-                <a href="mailto:hello@miraaoki.com" className="btn-primary">
+              <Reveal
+                delay={2}
+                className="flex flex-wrap items-center justify-center gap-3"
+              >
+                <a
+                  href="mailto:faisalfofficial27@gmail.com"
+                  className="btn-primary"
+                >
                   <span>{contact.ctaPrimary}</span>
                   <span className="btn-icon">
                     <ArrowIcon />

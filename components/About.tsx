@@ -20,7 +20,7 @@ export default function About() {
           </div>
 
           <Reveal delay={1}>
-            <div className="font-mono text-sm md:text-[15px] leading-[1.75] text-ink-300 space-y-4 max-w-md">
+            <div className="font-mono text-sm md:text-[15px] leading-[1.75] text-ink-300 space-y-4 max-w-md md:max-w-lg 2xl:max-w-xl">
               {about.codeLines.map((line) => (
                 <p key={line}>{line}</p>
               ))}

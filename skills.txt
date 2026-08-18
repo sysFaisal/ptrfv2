@@ -1,0 +1,19 @@
+frontend { 
+next js
+tailwind css
+}
+
+backend { 
+supabase
+axum
+}
+
+databse {
+postgressql
+sqlite
+}
+
+deployment {
+vercel
+docker 
+}
