@@ -16,9 +16,6 @@ type CodingData = {
   daily_average: number;
 };
 
-const WAKAPI_ENDPOINT: string =
-  "https://wakapi.sakuspace.my.id/api/compat/wakatime/v1/users/sahaduka/stats/";
-const WAKAPI_USERNAME: string = "sahaduka";
 const TIMEOUT_MS = 4000;
 
 function formatHours(seconds: number): string {
@@ -64,10 +61,6 @@ export default function CodingStats() {
       setError(true);
     }
 
-    if (!WAKAPI_ENDPOINT || !WAKAPI_USERNAME) {
-      render(fallbackCodingStats);
-      return;
-    }
     if (typeof fetch !== "function") {
       render(fallbackCodingStats);
       return;
@@ -77,12 +70,7 @@ export default function CodingStats() {
       typeof AbortController === "function" ? new AbortController() : null;
     const timer = setTimeout(() => ctrl?.abort(), TIMEOUT_MS);
 
-    const url =
-      WAKAPI_ENDPOINT.indexOf("?") === -1
-        ? `${WAKAPI_ENDPOINT}?username=${WAKAPI_USERNAME}`
-        : `${WAKAPI_ENDPOINT}&username=${WAKAPI_USERNAME}`;
-
-    fetch(url, {
+    fetch("/api/coding-stats", {
       headers: { Accept: "application/json" },
       signal: ctrl ? ctrl.signal : undefined,
     })
