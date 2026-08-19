@@ -50,6 +50,7 @@ export default function CodingStats() {
     }
     function renderError() {
       setError(true);
+      render(fallbackCodingStats);
     }
 
     if (typeof fetch !== "function") {
