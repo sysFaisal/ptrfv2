@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
+import Img from "@/components/Img";
 import Starside from "@/assets/starside.svg";
 import { config } from "@/lib/config";
 import { useActiveSection, sectionIdToNavLabel } from "@/lib/hooks/useActiveSection";
@@ -125,7 +125,7 @@ export default function MobileMenu() {
               className="w-[50%] h-auto aspect-square rounded-xl overflow-hidden relative hairline"
               style={{ backgroundColor: "var(--color-surface)" }}
             >
-              <Image
+              <Img
                 src="/me.jpg"
                 alt={menu.imageAlt}
                 fill

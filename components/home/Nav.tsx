@@ -1,5 +1,5 @@
-import Image from "next/image";
 import ArrowIcon from "@/components/ArrowIcon";
+import Img from "@/components/Img";
 import MobileMenu from "@/components/MobileMenu";
 import ThemeToggle from "@/components/ThemeToggle";
 import { config } from "@/lib/config";
@@ -17,7 +17,7 @@ export default function Nav() {
           <MobileMenu />
           <a href="#top" className="flex items-center gap-2.5 pr-4 py-1.5">
             <span className="w-7 h-7 rounded-full overflow-hidden">
-              <Image
+              <Img
                 src="/me.jpg"
                 alt={site.name}
                 width={28}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { observeReveal } from "@/lib/hooks/useReveal";
 
 export default function Reveal({
   children,
@@ -16,23 +17,8 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (!("IntersectionObserver" in window)) {
-      el.classList.add("in");
-      return;
-    }
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const cleanup = observeReveal(el);
+    return cleanup;
   }, []);
 
   const delayClass = delay ? ` reveal-d${delay}` : "";

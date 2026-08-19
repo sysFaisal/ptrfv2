@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { projects, type Project } from "@/lib/data";
 import { config } from "@/lib/config";
 import ProjectCard from "@/components/ProjectCard";
@@ -10,22 +10,18 @@ type Tab = "all" | Project["cat"];
 
 const tabs = config.work.tabs;
 
+const counts = {
+  all: projects.length,
+  frontend: projects.filter((p) => p.cat === "frontend").length,
+  backend: projects.filter((p) => p.cat === "backend").length,
+  fullstack: projects.filter((p) => p.cat === "fullstack").length,
+};
+
+const visibleTabs = tabs.filter((tab) => tab.id === "all" || counts[tab.id] > 0);
+
 export default function Work() {
   const [active, setActive] = useState<Tab>("all");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  const counts = useMemo(() => {
-    const all = projects.length;
-    const frontend = projects.filter((p) => p.cat === "frontend").length;
-    const backend = projects.filter((p) => p.cat === "backend").length;
-    const fullstack = projects.filter((p) => p.cat === "fullstack").length;
-    return { all, frontend, backend, fullstack };
-  }, []);
-
-  const visibleTabs = useMemo(
-    () => tabs.filter((tab) => tab.id === "all" || counts[tab.id] > 0),
-    [counts]
-  );
 
   function activate(tab: Tab) {
     setActive(tab);

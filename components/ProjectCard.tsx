@@ -1,7 +1,7 @@
 import type { Project } from "@/lib/data";
 import ArrowIcon from "./ArrowIcon";
 import StackLogos from "./StackLogos";
-import Image from "next/image";
+import Img from "./Img";
 export default function ProjectCard({
   project,
   hidden,
@@ -23,7 +23,7 @@ export default function ProjectCard({
             aria-hidden="true"
           ></div>
           <div className={`${large ? "aspect-[16/10]" : "aspect-[16/9]"} overflow-hidden relative`}>
-            <Image
+            <Img
               src={project.image}
               alt={project.alt}
               className="project-image object-cover"

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/Img";
 import { config } from "@/lib/config";
 
 const { footer, site } = config;
@@ -12,7 +12,7 @@ export default function Footer() {
             className="w-7 h-7 rounded-full overflow-hidden"
             aria-hidden="true"
           >
-            <Image
+            <Img
               src="/me.jpg"
               alt={site.name}
               width={28}

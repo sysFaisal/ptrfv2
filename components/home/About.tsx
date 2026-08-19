@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import Img from "@/components/Img";
 import { config } from "@/lib/config";
 
 const { about } = config;
@@ -88,7 +88,7 @@ export default function About() {
                   <ul className="space-y-4">
                     <li className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full overflow-hidden border border-accent/25 shrink-0">
-                        <Image
+                        <Img
                           src="/unjayni.png"
                           alt={about.education.school}
                           width={40}

@@ -1,20 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fallbackCodingStats } from "@/lib/data";
+import { fallbackCodingStats, type CodingData, type CodingStat } from "@/lib/data";
 import { config } from "@/lib/config";
 import Reveal from "@/components/Reveal";
 
 const { coding } = config;
-
-type CodingStat = { name: string; total_seconds: number; percent: number };
-type CodingData = {
-  languages: CodingStat[];
-  total_seconds: number;
-  days_tracked: number;
-  days_including_holidays?: number;
-  daily_average: number;
-};
 
 const TIMEOUT_MS = 4000;
 

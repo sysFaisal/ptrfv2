@@ -96,6 +96,8 @@ export default function Hero() {
                   alt={hero.portrait.alt}
                   className="w-full h-full object-cover"
                   loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--grad-tint-from)] via-transparent to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4">
