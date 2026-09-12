@@ -3,11 +3,13 @@ const WAKAPI_URL =
 const WAKAPI_USERNAME = "sahaduka";
 const TIMEOUT_MS = 4000;
 const CACHE_TTL_MS = 3600 * 1000;
+const TODAY_CACHE_TTL_MS = 60 * 1000;
 const PORT = Number(process.env.PORT ?? 3000);
 const DIST = new URL("./dist/", import.meta.url);
 
 type CacheEntry = { data: unknown; expires: number };
 let cache: CacheEntry | null = null;
+let todayCache: CacheEntry | null = null;
 
 async function codingStats(): Promise<Response> {
   const now = Date.now();
@@ -43,6 +45,36 @@ async function codingStats(): Promise<Response> {
   }
 }
 
+async function todayStats(): Promise<Response> {
+  const now = Date.now();
+  if (todayCache && todayCache.expires > now) {
+    return json(todayCache.data, 200, TODAY_CACHE_TTL_MS / 1000);
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const endpoint = `${WAKAPI_URL}/api/compat/wakatime/v1/users/${WAKAPI_USERNAME}/stats/today`;
+
+  try {
+    const response = await fetch(endpoint, {
+      headers: { Accept: "application/json" },
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      return json({ error: `Wakapi returned HTTP ${response.status}` }, 502, 60);
+    }
+
+    const data = await response.json();
+    todayCache = { data, expires: now + TODAY_CACHE_TTL_MS };
+    return json(data, 200, TODAY_CACHE_TTL_MS / 1000);
+  } catch {
+    return json({ error: "Unable to fetch today's stats from Wakapi" }, 502, 60);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 function json(body: unknown, status: number, maxAge: number): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -71,6 +103,9 @@ Bun.serve({
     const url = new URL(req.url);
     if (url.pathname === "/api/coding-stats") {
       return codingStats();
+    }
+    if (url.pathname === "/api/coding-today") {
+      return todayStats();
     }
     return serveStatic(url.pathname);
   },

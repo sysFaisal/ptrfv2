@@ -148,6 +148,12 @@ export const config = {
     subline: "Time tracked across languages. Real data, no guesses.",
     breakdown: "Language ", //breakdown
     error: "E, Using cached data.", //Coding stats unavailable. Using cached data.
+    stats: [
+      { key: "today", label: "Today" },
+      { key: "average", label: "Avg / day" },
+      { key: "total", label: "Total tracked" },
+      { key: "days", label: "Days tracked" },
+    ] as { key: "today" | "average" | "total" | "days"; label: string }[],
   },
 
   contact: {

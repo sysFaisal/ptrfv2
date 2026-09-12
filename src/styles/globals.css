@@ -648,15 +648,28 @@
 .cs-row:first-of-type {
   padding-top: 0;
 }
-.cs-rank {
+.cs-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.cs-icon[alt="TypeScript"] {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0.175rem;
+}
+.cs-icon-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--shimmer-1);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
-  font-weight: 500;
-  color: var(--color-ink-500);
-  background: var(--shimmer-1);
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-  text-align: center;
+  font-weight: 600;
+  color: var(--color-ink-300);
+  text-transform: uppercase;
 }
 .cs-lang {
   display: flex;
@@ -749,6 +762,10 @@
   .cs-row {
     grid-template-columns: 1.75rem 1fr;
     gap: 0.5rem;
+  }
+  .cs-icon {
+    width: 1.5rem;
+    height: 1.5rem;
   }
   .cs-time,
   .cs-percent {
