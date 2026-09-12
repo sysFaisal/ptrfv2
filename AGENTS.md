@@ -1,9 +1,15 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# minimax-m3
 
-# This is NOT the Next.js you know
+Vue 3 (Vite SPA) + Bun. Static SPA, API `/api/coding-stats` served by `server.ts` via `Bun.serve`.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+## Commands
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+- `bun run dev` — Vite dev + API watch (2 processes; Vite proxies `/api` → :3001)
+- `bun run build` — `vue-tsc --noEmit && vite build` → `dist/`
+- `bun run start` — serve `dist/` + API on :3000
 
-<!-- END:nextjs-agent-rules -->
+## Layout
+
+- `src/` — Vue SPA (`main.ts`, `App.vue`, `components/`, `composables/`, `lib/`, `styles/`, `assets/`)
+- `server.ts` — Bun.serve: Wakapi proxy + SPA fallback
+- `public/` — fonts and images served as-is

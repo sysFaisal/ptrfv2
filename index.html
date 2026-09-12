@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta
+      name="description"
+      content="Independent creative technologist working between distributed systems, expressive interfaces, and the strange territory where they meet."
+    />
+    <meta property="og:title" content="Faisal · Fullstack Developer" />
+    <meta
+      property="og:description"
+      content="Independent creative technologist working between distributed systems, expressive interfaces, and the strange territory where they meet."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/me.jpg" />
+    <title>Faisal · Fullstack Developer</title>
+    <link
+      rel="preload"
+      href="/fonts/geist-sans.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/geist-mono.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var prefersLight =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: light)").matches;
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : prefersLight
+                ? "light"
+                : "dark";
+          document.documentElement.dataset.theme = theme;
+        } catch (_) {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[80] focus:px-4 focus:py-2 focus:bg-accent focus:text-bg focus:rounded-full focus:text-sm focus:font-medium"
+      >Skip to content</a
+    >
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
