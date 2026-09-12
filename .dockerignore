@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+.git
+.github
+*.md
+.env*
+*.pem
+.DS_Store
+*.log
+coverage
+*.tsbuildinfo
+vercel
+database.db*

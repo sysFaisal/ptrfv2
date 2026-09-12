@@ -6,7 +6,9 @@ services:
     restart: unless-stopped
 
     environment:
+      PORT: "3000"
       WAKAPI_INTERNAL_URL: http://wakapi:3000
+      ALLOWED_ORIGINS: "https://sakuspace.my.id"
 
     ports:
       - "3100:3000"

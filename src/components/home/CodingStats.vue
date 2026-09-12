@@ -98,12 +98,13 @@ onMounted(() => {
         renderError();
         return;
       }
-      data.value = {
+      const stats = {
         languages: payload.languages,
         total_seconds: payload.total_seconds,
         days_tracked: payload.days_including_holidays ?? payload.days_tracked,
         daily_average: payload.daily_average,
       } as CodingData;
+      data.value = stats;
     })
     .catch(() => {
       if (timer) clearTimeout(timer);

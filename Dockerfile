@@ -14,7 +14,6 @@ ENV NODE_ENV=production
 ENV PORT=3000
 
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/server.ts ./server.ts
 
 EXPOSE 3000
